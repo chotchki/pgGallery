@@ -1,0 +1,181 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Start of my content */
+
+/* logo font */
+@font-face {
+	font-family: LinBiolinum; 
+	src: url("../font/LinBiolinum_R.woff");
+}
+
+html { 
+	font-size: 62.5%;
+	font-family: sans-serif;
+	height: 100%; 
+} 
+body { 
+	background-color: #ECF0D9;
+	height: 100%;	
+	font-size: 14px; /* =14px */
+	font-size: 1.4rem;
+} 
+h1 { 
+	font-size: 40px;
+	font-size: 4.0rem;
+	font-family: LinBiolinum; 
+}
+
+.footer-push-container {
+	height: 100%;
+}
+body > .footer-push-container { height: auto; min-height: 100%; }
+
+.top-links {
+	background-color: #2C2D26;
+	/* IE10 */ 						background-image: -ms-linear-gradient(bottom, #2C2D26 0%, #35372F 100%);
+	/* Mozilla Firefox */ 			background-image: -moz-linear-gradient(bottom, #2C2D26 0%, #35372F 100%);
+	/* Opera */ 					background-image: -o-linear-gradient(bottom, #2C2D26 0%, #35372F 100%);
+	/* Webkit (Safari/Chrome 10) */	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #2C2D26), color-stop(1, #35372F));
+	/* Webkit (Chrome 11+) */ 		background-image: -webkit-linear-gradient(bottom, #2C2D26 0%, #35372F 100%);
+	/* Proposed W3C Markup */ 		background-image: linear-gradient(bottom, #2C2D26 0%, #35372F 100%);
+	height: 25px;
+	height: 2.5 rem;
+	text-align: right;
+}
+
+.top-links ul {
+	display: block;
+	padding-top: 3px;
+}
+
+.top-links ul li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 10px;
+}
+
+.top-links ul li a {
+	color: #B0B29B;
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+.top-links span a:hover {
+	color: #FEB638;
+}
+
+.header {
+	background-color: #041E11;
+	/* IE10 */ 						background-image: -ms-linear-gradient(bottom, #041E11 0%, #2E322A 100%);
+	/* Mozilla Firefox */			background-image: -moz-linear-gradient(bottom, #041E11 0%, #2E322A 100%);
+	/* Opera */ 					background-image: -o-linear-gradient(bottom, #041E11 0%, #2E322A 100%);
+	/* Webkit (Safari/Chrome 10) */	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #041E11), color-stop(1, #2E322A));
+	/* Webkit (Chrome 11+) */ 		background-image: -webkit-linear-gradient(bottom, #041E11 0%, #2E322A 100%);
+	/* Proposed W3C Markup */ 		background-image: linear-gradient(bottom, #041E11 0%, #2E322A 100%);
+	height: 80px;
+	height: 8.0 rem;
+	width: 100%;
+}
+
+.title {
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 6px;
+	width: 300px;
+}
+
+.title a {
+	color: #ffffff;
+	font-size: 60px;
+	font-size: 6.0rem;
+	text-decoration: none;
+}
+
+.title a:hover {
+	color: #DB5216;
+}
+
+.footer-push {
+	background-color: #172D20;
+	/* IE10 */ 						background-image: -ms-linear-gradient(bottom, #213024 0%, #172D20 80%);
+	/* Mozilla Firefox */ 			background-image: -moz-linear-gradient(bottom, #213024 0%, #172D20 80%);
+	/* Opera */ 					background-image: -o-linear-gradient(bottom, #213024 0%, #172D20 80%);
+	/* Webkit (Safari/Chrome 10) */ background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #213024), color-stop(.8, #172D20));
+	/* Webkit (Chrome 11+) */ 		background-image: -webkit-linear-gradient(bottom, #213024 0%, #172D20 80%);
+	/* Proposed W3C Markup */ 		background-image: linear-gradient(bottom, #213024 0%, #172D20 80%);
+	
+	clear: both;
+	position: relative;
+ 	z-index: 10;
+ 	height: 40px;
+	height: 4.0 rem;
+	margin-top: -40px;
+	margin-top: -4.0rem;
+	width: 100%;
+}
+
+.footer {
+	color: #FFFFFF;
+	font-size: 10px;
+	font-size: 1.0rem;
+	margin-left: auto;
+	margin-right: auto;
+	padding-top: 15px;
+	width:	428px;
+}
+
+.footer a {
+	color: #FEB638;
+	text-decoration: none;
+}
+
+.footer a:hover {
+	text-decoration: underline;
+}

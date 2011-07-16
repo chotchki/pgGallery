@@ -54,4 +54,16 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<mime-mapping>
+		<extension>ico</extension>
+		<mime-type>image/vnd.microsoft.icon</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>woff</extension>
+		<mime-type>application/font-woff</mime-type>
+	</mime-mapping>
+
+
 </web-app>
