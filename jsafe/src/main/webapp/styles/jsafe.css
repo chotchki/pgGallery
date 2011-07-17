@@ -142,6 +142,69 @@ body > .footer-push-container { height: auto; min-height: 100%; }
 	color: #DB5216;
 }
 
+.content-container {
+	margin-left: auto;
+	margin-right: auto;
+	width: 1000px;
+}
+
+.content-bar {
+	float: left;
+	padding: 20px;
+	width: 625px;
+}
+
+.content {
+	background-color: #FFFFFF;
+    border: 1px solid #C0C3AC;
+    margin-bottom: 15px;
+    padding: 15px;
+    width: 625px;
+}
+
+.side-bar {
+	float: right;
+    padding-top: 10px;
+    width: 330px;
+}
+
+.side-bar-box {
+	background-color: #FFFFFF;
+	border: 1px solid #DBE0C8;
+	color: #555555;
+	font-size: 0.8em;
+	margin: 0 0 2.3em;
+	padding-bottom: 1em;
+	width: 305px;
+}
+
+.side-bar-box h3 {
+	background-color: #ECF0D9;
+	border-bottom: 1px solid #CAD0B8;
+	color: #444444;
+	font-family: Georgia;
+	font-size: 14px;
+	font-size: 1.4rem;
+	font-variant: small-caps;
+	font-weight: normal;
+	letter-spacing: 2px;
+	letter-spacing: 0.2rem;
+	line-height: 15px;
+	line-height: 1.5rem;
+	margin: -1px -1px 15px;
+	padding: 0 0 2px;
+	text-align: center;
+}
+
+.side-bar-box ul {
+	margin: 0 1em;
+}
+
+.side-bar-box ul li {
+	list-style-type: square;
+    margin-left: 20px;
+}
+
 .footer-push {
 	background-color: #172D20;
 	/* IE10 */ 						background-image: -ms-linear-gradient(bottom, #213024 0%, #172D20 80%);
