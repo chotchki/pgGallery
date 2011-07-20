@@ -71,6 +71,15 @@ h1 {
 	font-size: 4.0rem;
 	font-family: LinBiolinum; 
 }
+h2 {
+	color: #444444;
+    font-family: Georgia;
+    font-size: 2.5rem;
+}
+
+.error {
+	color: #FF0000;
+}
 
 .footer-push-container {
 	height: 100%;
@@ -159,7 +168,7 @@ body > .footer-push-container { height: auto; min-height: 100%; }
     border: 1px solid #C0C3AC;
     margin-bottom: 15px;
     padding: 15px;
-    width: 625px;
+    width: 600px;
 }
 
 .side-bar {

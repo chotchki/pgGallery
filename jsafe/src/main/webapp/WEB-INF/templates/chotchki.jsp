@@ -7,13 +7,13 @@
 			dojo.require("dijit.layout.BorderContainer");
 			dojo.require("dijit.layout.ContentPane");
 		</script>
-		<link rel="stylesheet" href="<%=request.getContextPath() %>/styles/jsafe.css" />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/claro/claro.css" />
+		<link rel="stylesheet" href="<%=request.getContextPath() %>/styles/style.css" />
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/tundra/tundra.css" />
 
 
 		<sitemesh:write property="head" />
 	</head>
-	<body>
+	<body class="tundra">
 		<div class="footer-push-container">
 			<div class="top-links">
 				<ul>
