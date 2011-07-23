@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="l" uri="/WEB-INF/tld/link.tld" %>
 <html>
 	<head>
 		<title>Login Page</title>
@@ -22,7 +23,7 @@
 			<c:out value="${username}" />
 			<c:out value="${password}" />
 			<p class="error"></p>
-			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="" method="POST">
+			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="<l:a>/j_security_check</l:a>" method="POST">
 	            <table>
 	                <tr>
 	                    <td>
