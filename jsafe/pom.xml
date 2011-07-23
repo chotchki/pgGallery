@@ -150,6 +150,12 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.5</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>
+				hibernate-validator-annotation-processor
+			</artifactId>
+			<version>4.2.0.Final</version>
+		</dependency>
 	</dependencies>
 </project>

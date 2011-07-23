@@ -32,11 +32,20 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-	<!-- Mybatis -->
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- Transaction Management -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
-	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean> -->
+	
+	<!-- Mybatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="chotchki.db.dao" />
+	</bean>
+	
+	<!-- Bean validation -->
+	<bean id="validator"
+      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 </beans>
