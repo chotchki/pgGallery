@@ -36,7 +36,7 @@
 	                        <label for="j_password">Password:</label>
 	                    </td>
 	                    <td>
-	                         <input type="text" id="j_password" name="j_password" required="true" dojoType="dijit.form.ValidationTextBox"/>
+	                         <input type="password" id="j_password" name="j_password" required="true" dojoType="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	            </table>
