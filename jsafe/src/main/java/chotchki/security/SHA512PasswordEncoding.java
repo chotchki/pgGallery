@@ -18,7 +18,7 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 
 public class SHA512PasswordEncoding implements PasswordEncoder {
 	protected Logger log = LoggerFactory.getLogger(this.getClass());
-	private final int iterations = 10000;
+	private final int iterations = 100000;
 	private final String algorithum = "HmacSHA512";
 
 	@Override
@@ -76,7 +76,7 @@ public class SHA512PasswordEncoding implements PasswordEncoder {
 		
 		byte[] output = new byte[64];
 		Mac hasher = Mac.getInstance(algorithum);
-		for(int i = 0; i<hmacs.size(); i++){
+		for(int i = 0; i<iterations; i++){
 			hasher.init(key);
 			hasher.update(password.getBytes());
 			hasher.update(output);
