@@ -20,7 +20,6 @@
 	<body>
 		<div class="content">
 			<h2>Login</h2>
-			<p class="error"></p>
 			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="<l:ink>/j_spring_security_check</l:ink>" method="POST">
 	            <table>
 	                <tr>
@@ -39,10 +38,11 @@
 	                         <input type="password" id="j_password" name="j_password" required="true" dojoType="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
+	                <tr>
+	                	<td><button dojoType="dijit.form.Button" type="submit">Login</button></td>
+	                	<td><p class="error"><c:out value="${error}"/></p></td>
+	                </tr>
 	            </table>
-	            <button dojoType="dijit.form.Button" type="submit" name="submitButton" value="Submit">
-	                Login
-	            </button>
         	</div>
 		</div>
 	</body>
