@@ -44,6 +44,11 @@
   			where username = ?
   			</value>
   		</property>
+  		<property name="authoritiesByUsernameQuery">
+  			<value>
+  				select username,'ROLE_USER' from users where username = ?
+  			</value>
+  		</property>
 	</bean>
 	
 	<bean id="passwordEncoder" class="chotchki.security.SHA512PasswordEncoding" />

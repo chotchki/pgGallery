@@ -20,7 +20,7 @@
 	<body>
 		<div class="content">
 			<h2>Login</h2>
-			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="<l:ink>/j_spring_security_check</l:ink>" method="POST">
+			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" action="<l:ink>/j_spring_security_check</l:ink>" method="POST">
 	            <table>
 	                <tr>
 	                    <td>
@@ -40,7 +40,7 @@
 	                </tr>
 	                <tr>
 	                	<td><button dojoType="dijit.form.Button" type="submit">Login</button></td>
-	                	<td><p class="error"><c:out value="${error}"/></p></td>
+	                	<td><p class="error"><c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></p></td>
 	                </tr>
 	            </table>
         	</div>

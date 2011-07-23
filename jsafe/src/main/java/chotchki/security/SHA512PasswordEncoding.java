@@ -47,7 +47,7 @@ public class SHA512PasswordEncoding implements PasswordEncoder {
 	public boolean isPasswordValid(String encPass, String rawPass, Object salt)
 			throws DataAccessException {
 		log.info("Checking hash " + encPass + " to Pass " + rawPass);
-		String[] hash_parts = encPass.split("$");
+		String[] hash_parts = encPass.split("\\$");
 		if(!hash_parts[0].equals("1")){
 			log.error("Bad hash version! " + hash_parts[0]);
 			return false;
