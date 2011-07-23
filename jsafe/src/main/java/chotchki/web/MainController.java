@@ -14,48 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import chotchki.security.SHA512PasswordEncoding;
+
 @Controller
 public class MainController {
 	protected Logger log = LoggerFactory.getLogger(this.getClass());
 	
 	@RequestMapping("/")
 	public String showIndexPage(Model mod) throws NoSuchAlgorithmException, InvalidKeyException{
-		
-		String password = "foo";
-		KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA512");
-		keyGen.init(512);
-		SecretKey salt = keyGen.generateKey();
-		
-		Mac hmac = null;
-		
-		log.debug("Test 10");
-		byte[] output = password.getBytes();
-		for(int i = 0; i < 10; i++){
-			hmac = Mac.getInstance("HmacSHA512");
-			hmac.init(salt);
-			output = hmac.doFinal(output);
-		}
-		log.debug("Test 10");
-		
-		log.debug("Test 10000");
-		output = password.getBytes();
-		for(int i = 0; i < 10000; i++){
-			hmac = Mac.getInstance("HmacSHA512");
-			hmac.init(salt);
-			output = hmac.doFinal(output);
-		}
-		log.debug("Test 10000");
-		
-		log.debug("Test 100000");
-		output = password.getBytes();
-		for(int i = 0; i < 10000; i++){
-			hmac = Mac.getInstance("HmacSHA512");
-			hmac.init(salt);
-			output = hmac.doFinal(output);
-		}
-		log.debug("Test 100000");
-		
-		
 		return "index";
 	}
 }
