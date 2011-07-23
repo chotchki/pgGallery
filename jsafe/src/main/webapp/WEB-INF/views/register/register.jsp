@@ -21,14 +21,14 @@
 	<body>
 		<div class="content">
 			<h2>New User Registration</h2>
-			<div dojoType="dijit.form.Form" id="registerForm" jsId="registerForm" encType="multipart/form-data" action="<l:ink>/register</l:ink>" method="POST">
+			<div dojoType="dijit.form.Form" id="registerForm" jsId="registerForm" action="<l:ink>/register</l:ink>" method="POST">
 	            <table>
 	                <tr>
 	                    <td>
 	                        <label for="username">Username:</label>
 	                    </td>
 	                    <td>
-	                        <input type="text" id="username" name="username" required="true" dojoType="dijit.form.ValidationTextBox"/>
+	                        <input type="text" id="username" name="user.username" required="true" dojoType="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -36,7 +36,7 @@
 	                        <label for="password">Password:</label>
 	                    </td>
 	                    <td>
-	                         <input type="password" id="password" name="password" required="true" dojoType="dijit.form.ValidationTextBox"/>
+	                         <input type="password" id="password" name="user.password" required="true" dojoType="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -52,29 +52,7 @@
 	                	<td><p class="error"><c:out value="${error}"/></p></td>
 	                </tr>
 	            </table>
-        	</div>	            
-			<form:form modelAttribute="registrationForm">
-		      <table>
-		          <tr>
-		              <td>First Name:</td>
-		              <td><form:input path="username" /></td>
-		          </tr>
-		          <tr>
-		              <td>Last Name:</td>
-		              <td><form:input path="password" /></td>
-		          </tr>
-		          <tr>
-		          	<td>Last Name:</td>
-		              <td><form:input path="retypePassword" /></td>
-		          </tr>
-		          <tr>
-		              <td colspan="2">
-		                  <input type="submit" value="Save Changes" />
-		              </td>
-		          </tr>
-		      </table>
-		  	</form:form>
-
+        	</div>     
 		</div>
 	</body>
 </html>

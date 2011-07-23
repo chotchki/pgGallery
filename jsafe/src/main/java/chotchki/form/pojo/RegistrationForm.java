@@ -1,30 +1,16 @@
 package chotchki.form.pojo;
 
+import javax.validation.Valid;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import chotchki.db.pojo.User;
+
 public class RegistrationForm {
 	
-	@NotBlank(message="Username must not be blank")
-	@Length(min=2, max=50,message="Username name can be between 2 and 50 characters")
-	private String username = null;
-	
-	@NotBlank(message="Password cannot be blank")
-	@Length(min=6, max=100, message="Password must be between 6 and 100 characters")
-	private String password = null;
-	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+	@Valid
+	private User user = null;
 	
 	@NotBlank(message="Retype Password cannot be blank")
 	@Length(min=6, max=100, message="Retype Password must be between 6 and 100 characters")
@@ -36,6 +22,14 @@ public class RegistrationForm {
 
 	public void setRetypePassword(String retypePassword) {
 		this.retypePassword = retypePassword;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 

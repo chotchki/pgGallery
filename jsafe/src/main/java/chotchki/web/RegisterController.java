@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,9 +20,11 @@ import chotchki.form.pojo.RegistrationForm;
 @RequestMapping("/register")
 public class RegisterController {
 	protected Logger log = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired
 	private UserService userService = null;
 	
-	@ModelAttribute("registrationForm")
+	@ModelAttribute("form")
 	public RegistrationForm getRegistrationObject(){
 		return new RegistrationForm();
 	}
@@ -32,19 +35,21 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String signUp(@ModelAttribute("registrationForm") @Valid RegistrationForm form, BindingResult result,Model mod){
+	public String signUp(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult result,Model mod){
 		if(result.hasErrors()){
 			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
 			return "register/register";
 		}
 		
-		if(!form.getRetypePassword().equals(form.getPassword())){
+		if(!form.getRetypePassword().equals(form.getUser().getPassword())){
 			mod.addAttribute("error", "You must retype the password correctly.");
 			return "register/register";
 		}
 		
+		User regUser = form.getUser();
 		try {
-			//userService.createUser(form.getUser());
+			regUser.hashPassword();
+			userService.createUser(regUser);
 		} catch (Exception e){
 			log.error("Had a sign up error", e);
 			mod.addAttribute("error", "Had an issue during registration.");
