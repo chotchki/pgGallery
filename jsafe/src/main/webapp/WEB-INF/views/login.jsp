@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 	<head>
 		<title>Login Page</title>
@@ -18,17 +19,10 @@
 	<body>
 		<div class="content">
 			<h2>Login</h2>
+			<c:out value="${username}" />
+			<c:out value="${password}" />
 			<p class="error"></p>
-			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="" method="">
-	            <script type="dojo/method" event="onSubmit">
-                if (this.validate()) {
-                    return confirm('Form is valid, press OK to submit');
-                } else {
-                    alert('Form contains invalid data.  Please correct first');
-                    return false;
-                }
-                return true;
-            	</script>
+			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="" method="POST">
 	            <table>
 	                <tr>
 	                    <td>

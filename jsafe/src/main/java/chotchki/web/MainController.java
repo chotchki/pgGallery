@@ -2,6 +2,7 @@ package chotchki.web;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
@@ -44,6 +45,15 @@ public class MainController {
 			output = hmac.doFinal(output);
 		}
 		log.debug("Test 10000");
+		
+		log.debug("Test 100000");
+		output = password.getBytes();
+		for(int i = 0; i < 10000; i++){
+			hmac = Mac.getInstance("HmacSHA512");
+			hmac.init(salt);
+			output = hmac.doFinal(output);
+		}
+		log.debug("Test 100000");
 		
 		
 		return "index";
