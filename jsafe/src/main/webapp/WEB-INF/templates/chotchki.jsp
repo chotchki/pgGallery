@@ -1,3 +1,4 @@
+<%@ taglib prefix="l" uri="/WEB-INF/tld/link.tld" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,7 +8,7 @@
 			dojo.require("dijit.layout.BorderContainer");
 			dojo.require("dijit.layout.ContentPane");
 		</script>
-		<link rel="stylesheet" href="<%=request.getContextPath() %>/styles/style.css" />
+		<link rel="stylesheet" href="<l:ink>/styles/style.css</l:ink>" />
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/tundra/tundra.css" />
 
 
@@ -17,12 +18,13 @@
 		<div class="footer-push-container">
 			<div class="top-links">
 				<ul>
-					<li><a href="<%=request.getContextPath() %>/login">Login</a></li>
+					<li><a href="<l:ink>/register</l:ink>" >Register</a></li>
+					<li><a href="<l:ink>/login</l:ink>" >Login</a></li>
 				</ul>
 			</div>
 			<div class="header">
 				<div class="title">
-					<h1><a href="<%=request.getContextPath() %>">Chotchki.us</a></h1>
+					<h1><a href="<l:ink>/</l:ink>" >Chotchki.us</a></h1>
 				</div>
 			</div>
 			<div class="content-container">

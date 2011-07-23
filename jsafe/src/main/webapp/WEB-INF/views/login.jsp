@@ -23,7 +23,7 @@
 			<c:out value="${username}" />
 			<c:out value="${password}" />
 			<p class="error"></p>
-			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="<l:a>/j_security_check</l:a>" method="POST">
+			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" encType="multipart/form-data" action="<l:ink>/j_spring_security_check</l:ink>" method="POST">
 	            <table>
 	                <tr>
 	                    <td>
