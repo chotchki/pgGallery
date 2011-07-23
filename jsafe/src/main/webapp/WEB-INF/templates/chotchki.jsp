@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="l" uri="/WEB-INF/tld/link.tld" %>
 <!DOCTYPE html>
 <html>
@@ -18,8 +19,13 @@
 		<div class="footer-push-container">
 			<div class="top-links">
 				<ul>
-					<li><a href="<l:ink>/register</l:ink>" >Register</a></li>
-					<li><a href="<l:ink>/login</l:ink>" >Login</a></li>
+					<sec:authorize access="isAuthenticated()">
+						<li><a href="<l:ink>/j_spring_security_logout</l:ink>" >Logout</a></li>
+					</sec:authorize>
+					<sec:authorize access="!isAuthenticated()">
+						<li><a href="<l:ink>/register</l:ink>" >Register</a></li>
+						<li><a href="<l:ink>/login</l:ink>" >Login</a></li>
+					</sec:authorize>
 				</ul>
 			</div>
 			<div class="header">

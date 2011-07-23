@@ -13,13 +13,13 @@
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/db"/>
 	
 	<!-- Setup Spring Security -->
-	<security:http auto-config='true'>
+	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/font/**"
-			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_ADMIN" />
+			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<security:intercept-url pattern="/styles/**"
-			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_ADMIN" />
+			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**"
-			access="IS_AUTHENTICATED_ANONYMOUSLY,ROLE_USER,ROLE_ADMIN" />
+			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 
 		<security:form-login login-page='/login' />
 	</security:http>
