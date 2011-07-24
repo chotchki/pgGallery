@@ -18,6 +18,8 @@
 			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<security:intercept-url pattern="/styles/**"
 			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+				<security:intercept-url pattern="/profile*"
+			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 		<security:intercept-url pattern="/**"
 			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 

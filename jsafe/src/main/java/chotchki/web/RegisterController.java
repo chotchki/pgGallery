@@ -38,12 +38,12 @@ public class RegisterController {
 	public String signUp(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult result,Model mod){
 		if(result.hasErrors()){
 			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
-			return "register/register";
+			return "register";
 		}
 		
 		if(!form.getRetypePassword().equals(form.getUser().getPassword())){
 			mod.addAttribute("error", "You must retype the password correctly.");
-			return "register/register";
+			return "register";
 		}
 		
 		User regUser = form.getUser();
@@ -53,7 +53,7 @@ public class RegisterController {
 		} catch (Exception e){
 			log.error("Had a sign up error", e);
 			mod.addAttribute("error", "Had an issue during registration.");
-			return "register/register";
+			return "register";
 		}
 		
 		return "redirect:/";

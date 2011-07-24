@@ -20,6 +20,7 @@
 			<div class="top-links">
 				<ul>
 					<sec:authorize access="isAuthenticated()">
+						<li><a href="<l:ink>/profile</l:ink>" >Profile</a></li>
 						<li><a href="<l:ink>/j_spring_security_logout</l:ink>" >Logout</a></li>
 					</sec:authorize>
 					<sec:authorize access="!isAuthenticated()">

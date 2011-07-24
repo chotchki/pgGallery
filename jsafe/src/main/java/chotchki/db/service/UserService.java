@@ -21,6 +21,11 @@ public class UserService {
 		userMapper.createUser(user);
 	}
 	
+	@Transactional
+	public void updateUser(User user){
+		userMapper.updateUser(user);
+	}
+	
 	public void setUserMapper(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
