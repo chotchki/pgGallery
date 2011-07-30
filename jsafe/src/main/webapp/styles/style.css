@@ -175,6 +175,18 @@ body > .footer-push-container { height: auto; min-height: 100%; }
     width: 600px;
 }
 
+.content form table {
+	margin-top: 10px;
+}
+
+.content form table tr td {
+	padding: 2px;
+}
+
+.content form table tr:last-child td:first-child {
+	padding-left: 0px;
+}
+
 .side-bar {
 	float: right;
     padding-top: 10px;

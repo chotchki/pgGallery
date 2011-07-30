@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="l" uri="/WEB-INF/tld/link.tld" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 	<head>
@@ -12,12 +11,7 @@
 		<style>
 			.content p {
 				margin: 2px;
-			}
-			#changePassForm table {
-				margin-top: 10px;
-			}
-			#changePassForm td {
-				padding: 2px;
+				padding-bottom: 5px;
 			}
 		</style>
 	</head>
@@ -26,7 +20,7 @@
 			<p>Logged in as: <c:out value="${username}" /></p>
 			
 			<h2>Change Your Password</h2>
-			<div dojoType="dijit.form.Form" id="changePassForm" action="<l:ink>/profile</l:ink>" method="POST">
+			<div dojoType="dijit.form.Form" id="changePassForm" action="<c:url value="/profile" /> " method="POST">
 	            <table>
 	                <tr>
 	                    <td>

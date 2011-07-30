@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="l" uri="/WEB-INF/tld/link.tld" %>
 <html>
 	<head>
 		<title>Login Page</title>
@@ -9,18 +8,12 @@
         	dojo.require("dijit.form.ValidationTextBox");
 		</script>
 		<style>
-			#loginForm table {
-				margin-top: 10px;
-			}
-			#loginForm td {
-				padding: 2px;
-			}
 		</style>
 	</head>
 	<body>
 		<div class="content">
 			<h2>Login</h2>
-			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" action="<l:ink>/j_spring_security_check</l:ink>" method="POST">
+			<div dojoType="dijit.form.Form" id="loginForm" jsId="loginForm" action="<c:url value="/j_spring_security_check" /> " method="POST">
 	            <table>
 	                <tr>
 	                    <td>

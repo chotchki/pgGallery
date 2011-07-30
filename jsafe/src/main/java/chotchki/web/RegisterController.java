@@ -31,7 +31,7 @@ public class RegisterController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String showRegistration(Model mod){
-		return "register/register";
+		return "register";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)

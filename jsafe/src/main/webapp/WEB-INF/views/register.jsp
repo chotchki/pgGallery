@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="l" uri="/WEB-INF/tld/link.tld" %>
 <html>
 	<head>
 		<title>Registration Page</title>
@@ -8,19 +7,11 @@
         	dojo.require("dijit.form.Button");
         	dojo.require("dijit.form.ValidationTextBox");
 		</script>
-		<style>
-			#registerForm table {
-				margin-top: 10px;
-			}
-			#registerForm td {
-				padding: 2px;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="content">
 			<h2>New User Registration</h2>
-			<div dojoType="dijit.form.Form" id="registerForm" jsId="registerForm" action="<l:ink>/register</l:ink>" method="POST">
+			<div dojoType="dijit.form.Form" id="registerForm" jsId="registerForm" action="<c:url value="/register"/> " method="POST">
 	            <table>
 	                <tr>
 	                    <td>
