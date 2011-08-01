@@ -43,6 +43,29 @@
 						<version>0.9.29</version> <scope>runtime</scope> </dependency> -->
 				</dependencies>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<instrumentation>
+						<ignores>
+							<ignore>chotchki.db.*</ignore>
+						</ignores>
+						<excludes>
+							<exclude>chotchki/db/**/*.class</exclude>
+							<exclude>chotchki/**/*Test.class</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>clean</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -143,14 +166,14 @@
 			<artifactId>javax.servlet.jsp-api</artifactId>
 			<version>2.2.1</version>
 		</dependency>
-		
+
 		<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.8.2</version>
 		</dependency>
-		
+
 		<!-- Other Deps -->
 		<dependency>
 			<groupId>commons-codec</groupId>
