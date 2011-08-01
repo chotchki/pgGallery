@@ -2,6 +2,8 @@ package chotchki.db.pojo;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -13,7 +15,9 @@ public class Album {
 	private String name = null;
 
 	private BigDecimal parentId = null;
-	private String owner = null;
+	
+	@NotNull
+	private boolean isPublic = false;
 
 	public BigDecimal getId() {
 		return id;
@@ -39,11 +43,11 @@ public class Album {
 		this.parentId = parentId;
 	}
 
-	public String getOwner() {
-		return owner;
+	public boolean isPublic() {
+		return isPublic;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 }

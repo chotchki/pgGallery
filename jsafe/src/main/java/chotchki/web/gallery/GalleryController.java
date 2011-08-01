@@ -61,7 +61,6 @@ public class GalleryController {
 			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
 			return showDefault(mod);
 		}
-		album.setOwner(user.getName());
 		try{
 			albumService.createAlbum(album);
 			return showDefault(mod);
@@ -91,7 +90,6 @@ public class GalleryController {
 		}
 		
 		album.setParentId(parentAlbum);
-		album.setOwner(user.getName());
 		
 		try{
 			albumService.createAlbum(album);

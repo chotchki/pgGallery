@@ -15,7 +15,6 @@ public class Item {
 	
 	private String mimeType = null;
 	private byte[] contentHash = null;
-	private String owner = null;
 	private byte[] content = null;
 	
 	public BigDecimal getId() {
@@ -47,12 +46,6 @@ public class Item {
 	}
 	public void setContentHash(byte[] contentHash) {
 		this.contentHash = contentHash;
-	}
-	public String getOwner() {
-		return owner;
-	}
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 	public byte[] getContent() {
 		return content;

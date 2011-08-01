@@ -144,6 +144,13 @@
 			<version>2.2.1</version>
 		</dependency>
 		
+		<!-- Testing -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+		</dependency>
+		
 		<!-- Other Deps -->
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -156,6 +163,11 @@
 				hibernate-validator-annotation-processor
 			</artifactId>
 			<version>4.2.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6.2</version>
 		</dependency>
 	</dependencies>
 </project>

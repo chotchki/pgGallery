@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import chotchki.db.pojo.User;
 import chotchki.db.service.UserService;
 import chotchki.form.pojo.ChangePasswordForm;
-import chotchki.security.SHA512PasswordEncoding;
+import chotchki.security.SHA512PasswordEncoder;
 
 @Controller
 @RequestMapping("/profile")
@@ -42,7 +42,7 @@ public class ProfileController {
 		}
 		try {
 			User user = userService.getUser(principal.getName());
-			SHA512PasswordEncoding hasher = new SHA512PasswordEncoding();
+			SHA512PasswordEncoder hasher = new SHA512PasswordEncoder();
 			if(!hasher.isPasswordValid(user.getPassword(), form.getCurrentPassword(), null)){
 				mod.addAttribute("error", "Current password is wrong.");
 				return "profile";

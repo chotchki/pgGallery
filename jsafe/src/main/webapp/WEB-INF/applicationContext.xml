@@ -53,5 +53,5 @@
   		</property>
 	</bean>
 	
-	<bean id="passwordEncoder" class="chotchki.security.SHA512PasswordEncoding" />
+	<bean id="passwordEncoder" class="chotchki.security.SHA512PasswordEncoder" />
 </beans>

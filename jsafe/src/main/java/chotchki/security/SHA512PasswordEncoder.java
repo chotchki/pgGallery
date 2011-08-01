@@ -16,9 +16,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
 
-public class SHA512PasswordEncoding implements PasswordEncoder {
+public class SHA512PasswordEncoder implements PasswordEncoder {
 	protected Logger log = LoggerFactory.getLogger(this.getClass());
-	private final int iterations = 100000;
+	private final int iterations = 200000;
 	private final String algorithum = "HmacSHA512";
 
 	@Override

@@ -3,7 +3,7 @@ package chotchki.db.pojo;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import chotchki.security.SHA512PasswordEncoding;
+import chotchki.security.SHA512PasswordEncoder;
 
 public class User {
 	@NotBlank(message="Username must not be blank")
@@ -15,7 +15,7 @@ public class User {
 	private String password = null;
 	
 	public void hashPassword(){
-		SHA512PasswordEncoding hasher = new SHA512PasswordEncoding();
+		SHA512PasswordEncoder hasher = new SHA512PasswordEncoder();
 		password = hasher.encodePassword(password, null);
 	}
 	
