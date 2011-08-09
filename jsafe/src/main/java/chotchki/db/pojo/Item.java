@@ -14,8 +14,6 @@ public class Item {
 	private String name = null;
 	
 	private String mimeType = null;
-	private byte[] contentHash = null;
-	private byte[] content = null;
 	
 	public BigDecimal getId() {
 		return id;
@@ -40,17 +38,5 @@ public class Item {
 	}
 	public void setMimeType(String mimeType) {
 		this.mimeType = mimeType;
-	}
-	public byte[] getContentHash() {
-		return contentHash;
-	}
-	public void setContentHash(byte[] contentHash) {
-		this.contentHash = contentHash;
-	}
-	public byte[] getContent() {
-		return content;
-	}
-	public void setContent(byte[] content) {
-		this.content = content;
 	}
 }
