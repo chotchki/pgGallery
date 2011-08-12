@@ -8,6 +8,7 @@ public class Thumbnail {
 	private int height = -1;
 	private int width = -1;
 	private byte[] content = null;
+	
 	public BigDecimal getId() {
 		return id;
 	}

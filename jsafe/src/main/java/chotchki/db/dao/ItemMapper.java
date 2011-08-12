@@ -20,9 +20,9 @@ public interface ItemMapper {
 	@Select("select * from items where id = #{id}")
 	public Item getItemById(@Param("id") BigDecimal id);
 	
-	@Insert("insert into items(albumId, name, mimeType, contentHash, owner, content) values (#{albumId}, #{name}, #{mimeType}, #{contentHash}, #{owner}, #{content}) returning *")
+	@Insert("insert into items(albumId, name, mimeType) values (#{albumId}, #{name}, #{mimeType}) returning *")
 	public Item createItem(Item item);
 	
-	@Update("update items set albumId = #{albumId}, name = #{name}, mimeType = #{mimeType}, contentHash = #{contentHash}, owner = #{owner}, content = #{content} where id = #{id}")
+	@Update("update items set albumId = #{albumId}, name = #{name}, mimeType = #{mimeType} where id = #{id}")
 	public void updateItem(Item item);
 }

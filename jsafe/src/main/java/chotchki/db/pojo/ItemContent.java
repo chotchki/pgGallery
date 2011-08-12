@@ -3,11 +3,18 @@ package chotchki.db.pojo;
 import java.math.BigDecimal;
 
 public class ItemContent {
+	private BigDecimal id = null;
 	private BigDecimal itemId = null;
 	private byte[] content = null;
 	private boolean active = false;
 	private byte[] contentHash = null;
 
+	public BigDecimal getId() {
+		return id;
+	}
+	public void setId(BigDecimal id) {
+		this.id = id;
+	}
 	public BigDecimal getItemId() {
 		return itemId;
 	}
