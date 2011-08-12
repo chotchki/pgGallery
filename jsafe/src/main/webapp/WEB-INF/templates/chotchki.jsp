@@ -4,13 +4,13 @@
 <html>
 	<head>
 		<title>Chotchki.us: <sitemesh:write property="title" /></title>
-		<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.6.0/dojo/dojo.xd.js" type="text/javascript" djConfig="parseOnLoad:true"></script>
+		<script src="<c:url value="/js/dojo-release-1.6.1/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
 		<script type="text/javascript">
 			dojo.require("dijit.layout.BorderContainer");
 			dojo.require("dijit.layout.ContentPane");
 		</script>
 		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
-		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.6/dijit/themes/tundra/tundra.css" />
+		<link rel="stylesheet" href="<c:url value="/js/dojo-release-1.6.1/dijit/themes/tundra/tundra.css"/>" />
 
 
 		<sitemesh:write property="head" />
