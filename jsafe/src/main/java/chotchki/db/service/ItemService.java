@@ -14,23 +14,23 @@ public class ItemService {
 	@Autowired
 	private ItemMapper itemMapper = null;
 
-	public List<Item> getNonAlbumItems(){
+	public List<Item> getNonAlbum(){
 		return itemMapper.getNonAlbum();
 	}
 	
-	public List<Item> getItemsByAlbum(BigDecimal albumId){
+	public List<Item> getByAlbum(BigDecimal albumId){
 		return itemMapper.getByAlbum(albumId);
 	}
 
-	public Item getItemById(BigDecimal id){
+	public Item getById(BigDecimal id){
 		return itemMapper.getById(id);
 	}
 
-	public Item createItem(Item item){
+	public Item create(Item item){
 		return itemMapper.create(item);
 	}
 	
-	public void updateItem(Item item){
+	public void update(Item item){
 		itemMapper.update(item);
 	}
 

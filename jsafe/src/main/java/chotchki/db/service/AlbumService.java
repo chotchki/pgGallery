@@ -14,23 +14,23 @@ public class AlbumService {
 	@Autowired
 	private AlbumMapper albumMapper = null;
 	
-	public List<Album> getRootAlbums(){
+	public List<Album> getRoot(){
 		return albumMapper.getRoot();
 	}
 	
-	public List<Album> getAlbumsByParent(BigDecimal id){
+	public List<Album> getByParent(BigDecimal id){
 		return albumMapper.getByParent(id);
 	}
 	
-	public Album getAlbumById(BigDecimal id){
+	public Album getById(BigDecimal id){
 		return albumMapper.getById(id);
 	}
 	
-	public Album createAlbum(Album album){
+	public Album create(Album album){
 		return albumMapper.create(album);
 	}
 	
-	public void updateAlbum(Album album){
+	public void update(Album album){
 		albumMapper.update(album);
 	}
 

@@ -49,7 +49,7 @@ public class RegisterController {
 		User regUser = form.getUser();
 		try {
 			regUser.hashPassword();
-			userService.createUser(regUser);
+			userService.create(regUser);
 		} catch (Exception e){
 			log.error("Had a sign up error", e);
 			mod.addAttribute("error", "Had an issue during registration.");

@@ -50,7 +50,7 @@ public class ProfileController {
 			user.setPassword(form.getNewPassword());
 			user.hashPassword();
 			
-			userService.updateUser(user);
+			userService.update(user);
 			mod.addAttribute("success", "Password Changed Successfully!");
 			return "profile";
 		} catch (Exception e){

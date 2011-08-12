@@ -17,12 +17,12 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void createUser(User user){
+	public void create(User user){
 		userMapper.create(user);
 	}
 	
 	@Transactional
-	public void updateUser(User user){
+	public void update(User user){
 		userMapper.update(user);
 	}
 	

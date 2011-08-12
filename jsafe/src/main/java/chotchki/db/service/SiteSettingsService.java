@@ -16,23 +16,23 @@ public class SiteSettingsService {
 	@Autowired
 	private SiteSettingsMapper siteSettingsMapper = null;
 
-	public SiteSettings getSettings(){
+	public SiteSettings get(){
 		SiteSettings settings = siteSettingsMapper.get();
 		if(settings == null){
 			log.info("Creating initial site settings");
 			settings = new SiteSettings();
-			createSettings(settings);
+			create(settings);
 		}
 		return settings;
 	}
 	
 	@Transactional
-	private void createSettings(SiteSettings settings){
+	private void create(SiteSettings settings){
 		siteSettingsMapper.create(settings);		
 	}
 	
 	@Transactional
-	public void updateSiteSettings(SiteSettings settings){
+	public void update(SiteSettings settings){
 		siteSettingsMapper.update(settings);
 	}
 	

@@ -31,15 +31,15 @@ public class GalleryController {
 	
 	@RequestMapping("/gallery")
 	public String showDefault(Model mod){
-		mod.addAttribute("childAlbums", albumService.getRootAlbums());
-		mod.addAttribute("childItems", itemService.getNonAlbumItems());
+		mod.addAttribute("childAlbums", albumService.getRoot());
+		mod.addAttribute("childItems", itemService.getNonAlbum());
 		return "gallery/gallery";
 	}
 
 	@RequestMapping(value = "/gallery/{album}", method = RequestMethod.GET)
 	public String viewAlbum(Model mod, @PathVariable("album") BigDecimal album){
 		try{
-			Album valid = albumService.getAlbumById(album);
+			Album valid = albumService.getById(album);
 			if(valid == null){
 				throw new Exception("Album does not exist.");
 			}
@@ -50,8 +50,8 @@ public class GalleryController {
 			return "gallery/gallery";
 		}
 		
-		mod.addAttribute("childAlbums", albumService.getAlbumsByParent(album));
-		mod.addAttribute("childItems", itemService.getItemsByAlbum(album));
+		mod.addAttribute("childAlbums", albumService.getByParent(album));
+		mod.addAttribute("childItems", itemService.getByAlbum(album));
 		return "gallery/gallery";
 	}
 	
@@ -62,7 +62,7 @@ public class GalleryController {
 			return showDefault(mod);
 		}
 		try{
-			albumService.createAlbum(album);
+			albumService.create(album);
 			return showDefault(mod);
 		} catch (Exception e){
 			log.error("Had error creating album", e);
@@ -79,7 +79,7 @@ public class GalleryController {
 		}
 		
 		try{
-			Album valid = albumService.getAlbumById(parentAlbum);
+			Album valid = albumService.getById(parentAlbum);
 			if(valid == null){
 				throw new Exception("Parent Album does not exist");
 			}
@@ -92,7 +92,7 @@ public class GalleryController {
 		album.setParentId(parentAlbum);
 		
 		try{
-			albumService.createAlbum(album);
+			albumService.create(album);
 			return viewAlbum(mod, parentAlbum);
 		} catch (Exception e){
 			log.error("Had error creating album", e);
