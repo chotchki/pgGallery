@@ -17,7 +17,7 @@ public class SiteSettingsService {
 	private SiteSettingsMapper siteSettingsMapper = null;
 
 	public SiteSettings getSettings(){
-		SiteSettings settings = siteSettingsMapper.getSiteSettings();
+		SiteSettings settings = siteSettingsMapper.get();
 		if(settings == null){
 			log.info("Creating initial site settings");
 			settings = new SiteSettings();
@@ -28,12 +28,12 @@ public class SiteSettingsService {
 	
 	@Transactional
 	private void createSettings(SiteSettings settings){
-		siteSettingsMapper.createSiteSettings(settings);		
+		siteSettingsMapper.create(settings);		
 	}
 	
 	@Transactional
 	public void updateSiteSettings(SiteSettings settings){
-		siteSettingsMapper.updateSiteSettings(settings);
+		siteSettingsMapper.update(settings);
 	}
 	
 	public void setSiteSettingsMapper(SiteSettingsMapper siteSettingsMapper) {

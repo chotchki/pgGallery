@@ -15,23 +15,23 @@ public class ItemService {
 	private ItemMapper itemMapper = null;
 
 	public List<Item> getNonAlbumItems(){
-		return itemMapper.getNonAlbumItems();
+		return itemMapper.getNonAlbum();
 	}
 	
 	public List<Item> getItemsByAlbum(BigDecimal albumId){
-		return itemMapper.getItemsByAlbum(albumId);
+		return itemMapper.getByAlbum(albumId);
 	}
 
 	public Item getItemById(BigDecimal id){
-		return itemMapper.getItemById(id);
+		return itemMapper.getById(id);
 	}
 
 	public Item createItem(Item item){
-		return itemMapper.createItem(item);
+		return itemMapper.create(item);
 	}
 	
 	public void updateItem(Item item){
-		itemMapper.updateItem(item);
+		itemMapper.update(item);
 	}
 
 	public void setItemMapper(ItemMapper itemMapper) {

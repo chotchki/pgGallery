@@ -12,17 +12,17 @@ import chotchki.db.pojo.Item;
 
 public interface ItemMapper {
 	@Select("select * from items where albumId is null")
-	public List<Item> getNonAlbumItems();
+	public List<Item> getNonAlbum();
 	
 	@Select("select * from items where albumId = #{albumId}")
-	public List<Item> getItemsByAlbum(@Param("album") BigDecimal albumId);
+	public List<Item> getByAlbum(@Param("album") BigDecimal albumId);
 	
 	@Select("select * from items where id = #{id}")
-	public Item getItemById(@Param("id") BigDecimal id);
+	public Item getById(@Param("id") BigDecimal id);
 	
 	@Insert("insert into items(albumId, name, mimeType) values (#{albumId}, #{name}, #{mimeType}) returning *")
-	public Item createItem(Item item);
+	public Item create(Item item);
 	
 	@Update("update items set albumId = #{albumId}, name = #{name}, mimeType = #{mimeType} where id = #{id}")
-	public void updateItem(Item item);
+	public void update(Item item);
 }

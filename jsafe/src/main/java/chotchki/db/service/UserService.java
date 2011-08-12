@@ -13,17 +13,17 @@ public class UserService {
 	private UserMapper userMapper = null;
 
 	public User getUser(String username){
-		return userMapper.getUser(username);
+		return userMapper.get(username);
 	}
 	
 	@Transactional
 	public void createUser(User user){
-		userMapper.createUser(user);
+		userMapper.create(user);
 	}
 	
 	@Transactional
 	public void updateUser(User user){
-		userMapper.updateUser(user);
+		userMapper.update(user);
 	}
 	
 	public void setUserMapper(UserMapper userMapper) {
