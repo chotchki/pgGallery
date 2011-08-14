@@ -7,8 +7,7 @@
         	dojo.require("dijit.form.Button");
         	dojo.require("dijit.form.ValidationTextBox");
 		</script>
-		<style>
-		</style>
+		<c:set value="${SPRING_SECURITY_LAST_EXCEPTION.message}" var="error"/>
 	</head>
 	<body>
 		<div class="content">
@@ -33,7 +32,6 @@
 	                </tr>
 	                <tr>
 	                	<td><button dojoType="dijit.form.Button" type="submit">Login</button></td>
-	                	<td><p class="error"><c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/></p></td>
 	                </tr>
 	            </table>
         	</div>

@@ -77,13 +77,7 @@ h2 {
     font-size: 2.5rem;
 }
 
-.error {
-	color: #FF0000;
-}
 
-.success {
-	color: #041E11;
-}
 
 .footer-push-container {
 	height: 100%;
@@ -155,6 +149,24 @@ body > .footer-push-container { height: auto; min-height: 100%; }
 	color: #DB5216;
 }
 
+body div#message {
+	background-color: #FFFFFF;
+	border: 1px solid #DBE0C8;
+	opacity: 0;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px;
+	width: 500px;
+}
+
+body div#message p.error {
+	color: #FF0000;
+}
+
+body div#message p.success {
+	color: #041E11;
+}
+
 .content-container {
 	margin-left: auto;
 	margin-right: auto;
@@ -185,6 +197,12 @@ body > .footer-push-container { height: auto; min-height: 100%; }
 
 .content form table tr:last-child td:first-child {
 	padding-left: 0px;
+}
+
+.content ul.breadcrumbs li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 10px;
 }
 
 .side-bar {

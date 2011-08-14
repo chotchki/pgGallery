@@ -48,7 +48,6 @@
 	                </tr>
 	                <tr>
 	                	<td><button dojoType="dijit.form.Button" type="submit">Change Password</button></td>
-	                	<td><p class="error"><c:out value="${error}"/></p><p class="success"><c:out value="${success}"/></p></td>
 	                </tr>
 	            </table>
         	</div>     

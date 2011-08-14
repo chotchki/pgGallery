@@ -11,10 +11,10 @@ import org.apache.ibatis.annotations.Update;
 import chotchki.db.pojo.Item;
 
 public interface ItemMapper {
-	@Select("select * from items where albumId is null")
+	@Select("select * from items where \"albumId\" is null")
 	public List<Item> getNonAlbum();
 	
-	@Select("select * from items where albumId = #{albumId}")
+	@Select("select * from items where \"albumId\" = #{albumId}")
 	public List<Item> getByAlbum(@Param("album") BigDecimal albumId);
 	
 	@Select("select * from items where id = #{id}")
@@ -23,6 +23,6 @@ public interface ItemMapper {
 	@Insert("insert into items(albumId, name, mimeType) values (#{albumId}, #{name}, #{mimeType}) returning *")
 	public Item create(Item item);
 	
-	@Update("update items set albumId = #{albumId}, name = #{name}, mimeType = #{mimeType} where id = #{id}")
+	@Update("update items set \"albumId\" = #{albumId}, name = #{name}, \"mimeType\" = #{mimeType} where id = #{id}")
 	public void update(Item item);
 }

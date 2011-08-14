@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,85 +23,63 @@ import chotchki.db.service.ItemService;
 @Controller
 public class GalleryController {
 	protected Logger log = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private AlbumService albumService = null;
-	
+
 	@Autowired
 	private ItemService itemService = null;
-	
+
 	@RequestMapping("/gallery")
-	public String showDefault(Model mod){
+	public String showDefault(Model mod) {
 		mod.addAttribute("childAlbums", albumService.getRoot());
 		mod.addAttribute("childItems", itemService.getNonAlbum());
 		return "gallery/gallery";
 	}
 
 	@RequestMapping(value = "/gallery/{album}", method = RequestMethod.GET)
-	public String viewAlbum(Model mod, @PathVariable("album") BigDecimal album){
-		try{
+	public String viewAlbum(Model mod, @PathVariable("album") BigDecimal album) {
+		try {
 			Album valid = albumService.getById(album);
-			if(valid == null){
+			if (valid == null) {
 				throw new Exception("Album does not exist.");
 			}
-			mod.addAttribute("album", valid);
-		} catch (Exception e){
+			mod.addAttribute("currentAlbum", valid);
+		} catch (Exception e) {
 			log.error("Issue checking album", e);
 			mod.addAttribute("error", "Could not find album");
 			return "gallery/gallery";
 		}
-		
+		mod.addAttribute("breadcrumbs", albumService.getBreadcrumbById(album));
 		mod.addAttribute("childAlbums", albumService.getByParent(album));
 		mod.addAttribute("childItems", itemService.getByAlbum(album));
 		return "gallery/gallery";
 	}
-	
+
 	@RequestMapping(value = "/gallery/create", method = RequestMethod.POST)
-	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result){
-		if(result.hasErrors()){
+	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result) {
+		if (result.hasErrors()) {
 			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
 			return showDefault(mod);
 		}
-		try{
+		try {
 			albumService.create(album);
-			return showDefault(mod);
-		} catch (Exception e){
+			mod.addAttribute("success", "Successfully created album.");
+		} catch (DuplicateKeyException e) {
+			log.error("You must supply a unique album name!", e);
+			mod.addAttribute("error", "You must supply a unique album name!");
+		}
+		catch (Exception e) {
 			log.error("Had error creating album", e);
 			mod.addAttribute("error", "Could not create album");
+		}
+		if (album.getParentId() != null) {
+			return viewAlbum(mod, album.getParentId());
+		} else {
 			return showDefault(mod);
 		}
 	}
-	
-	@RequestMapping(value = "/gallery/{album}/create", method = RequestMethod.POST)
-	public String createAlbum(Model mod, @PathVariable("album") BigDecimal parentAlbum, Principal user, @Valid Album album, BindingResult result){
-		if(result.hasErrors()){
-			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
-			return viewAlbum(mod, parentAlbum);
-		}
-		
-		try{
-			Album valid = albumService.getById(parentAlbum);
-			if(valid == null){
-				throw new Exception("Parent Album does not exist");
-			}
-		} catch (Exception e){
-			log.error("Had issue with parent album", e);
-			mod.addAttribute("error", "Parent Album does not exist");
-			return viewAlbum(mod, parentAlbum);
-		}
-		
-		album.setParentId(parentAlbum);
-		
-		try{
-			albumService.create(album);
-			return viewAlbum(mod, parentAlbum);
-		} catch (Exception e){
-			log.error("Had error creating album", e);
-			mod.addAttribute("error", "Could not create album");
-			return viewAlbum(mod, parentAlbum);
-		}
-	}
-	
+
 	public void setAlbumService(AlbumService albumService) {
 		this.albumService = albumService;
 	}

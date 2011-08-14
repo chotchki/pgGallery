@@ -5,14 +5,11 @@
 	<head>
 		<title>Chotchki.us: <sitemesh:write property="title" /></title>
 		<script src="<c:url value="/js/dojo-release-1.6.1/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
-		<script type="text/javascript">
-			dojo.require("dijit.layout.BorderContainer");
-			dojo.require("dijit.layout.ContentPane");
-		</script>
 		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
 		<link rel="stylesheet" href="<c:url value="/js/dojo-release-1.6.1/dijit/themes/tundra/tundra.css"/>" />
-
-
+		<script type="text/javascript">
+					
+		</script>
 		<sitemesh:write property="head" />
 	</head>
 	<body class="tundra">
@@ -34,6 +31,17 @@
 					<h1><a href="<c:url value="/"/> " >Chotchki.us</a></h1>
 				</div>
 			</div>
+			<div id="message">
+				<p class="error"><c:out value="${error}"/></p>
+				<p class="success"><c:out value="${success}"/></p>
+			</div>
+			<c:if test="${(not empty error) or (not empty success)}">
+			<script type="text/javascript">
+				dojo.ready(function(){
+					dojo.fadeIn({node: "message", duration: 700}).play();
+				});
+			</script>
+			</c:if>
 			<div class="content-container">
 				<div class="content-bar">
 					<sitemesh:write property="body" />
@@ -44,7 +52,7 @@
 						<ul>
 							<li>Blog</li>
 							<li>Password Manager</li>
-							<li>Photo Gallery</li>
+							<li><a href="<c:url value="/gallery"/>">Photo Gallery</a></li>
 						</ul>
 					</div>
 				</div>

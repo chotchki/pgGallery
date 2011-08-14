@@ -39,7 +39,6 @@
 	                </tr>
 	                <tr>
 	                	<td><button dojoType="dijit.form.Button" type="submit">Register</button></td>
-	                	<td><p class="error"><c:out value="${error}"/></p></td>
 	                </tr>
 	            </table>
         	</div>     
