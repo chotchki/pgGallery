@@ -10,12 +10,12 @@ import org.apache.ibatis.annotations.Update;
 import chotchki.db.pojo.ItemContent;
 
 public interface ItemContentMapper {
-	@Select("select * from itemContent where itemId = #{itemId} and active = true")
+	@Select("select * from \"itemContent\" where \"itemId\" = #{itemId} and active = true")
 	public ItemContent getActiveById(@Param("itemId") BigDecimal itemId);
 	
-	@Insert("insert into itemContent(itemId, content, active, contentHash) values (#{itemId}, #{content}, #{active}, #{contentHash}) returning *")
-	public ItemContent create(ItemContent content);
+	@Insert("insert into \"itemContent\"(\"itemId\", content, active, \"contentHash\") values (#{itemId}, #{content}, #{active}, #{contentHash})")
+	public void create(ItemContent content);
 	
-	@Update("update itemContent set itemId = #{itemId}, content = #{content}, active = #{active}, contentHash = #{contentHash} where id = #{id}")
+	@Update("update \"itemContent\" set \"itemId\" = #{itemId}, content = #{content}, active = #{active}, \"contentHash\" = #{contentHash} where id = #{id}")
 	public void update(ItemContent content);
 }

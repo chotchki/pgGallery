@@ -2,6 +2,7 @@ package chotchki.web.gallery;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import chotchki.db.pojo.Album;
 import chotchki.db.service.AlbumService;
@@ -78,6 +82,13 @@ public class GalleryController {
 		} else {
 			return showDefault(mod);
 		}
+	}
+	
+	@RequestMapping(value="/gallery/upload", method = RequestMethod.POST)
+	public String uploadItems(Model mod, @RequestParam("parentId") BigDecimal parentId, MultipartHttpServletRequest req) {
+		List<MultipartFile> items = req.getFiles("items");
+		
+		return viewAlbum(mod, parentId);
 	}
 
 	public void setAlbumService(AlbumService albumService) {

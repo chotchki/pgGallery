@@ -187,6 +187,10 @@ body div#message p.success {
     width: 600px;
 }
 
+.content a {
+	color: #DB5216;
+}
+
 .content form table {
 	margin-top: 10px;
 }
@@ -199,10 +203,21 @@ body div#message p.success {
 	padding-left: 0px;
 }
 
+.content ul.breadcrumbs {
+	font-size: 12px; /* =14px */
+	font-size: 1.2rem;
+	padding-top: 6px;
+}
+
 .content ul.breadcrumbs li {
 	display: inline;
 	list-style-type: none;
 	padding-right: 10px;
+}
+
+.content ul.items li {
+	height: 100px;
+	width: 100px;
 }
 
 .side-bar {
@@ -215,7 +230,7 @@ body div#message p.success {
 	background-color: #FFFFFF;
 	border: 1px solid #DBE0C8;
 	color: #555555;
-	font-size: 0.8em;
+	font-size: 0.8rem;
 	margin: 0 0 2.3em;
 	padding-bottom: 1em;
 	width: 305px;

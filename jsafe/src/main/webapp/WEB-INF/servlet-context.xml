@@ -49,4 +49,10 @@
 	<!-- Bean validation -->
 	<bean id="validator"
       class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+      
+    <!-- File Upload -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes -->
+    	<property name="maxUploadSize" value="100000000"/>
+	</bean>
 </beans>
