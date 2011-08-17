@@ -1,0 +1,7 @@
+require.built();
+define(({
+next: "Próximo",
+previous: "Anterior",
+done: "Concluído"
+})
+);

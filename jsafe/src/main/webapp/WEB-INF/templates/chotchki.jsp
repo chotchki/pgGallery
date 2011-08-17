@@ -4,9 +4,9 @@
 <html>
 	<head>
 		<title>Chotchki.us: <sitemesh:write property="title" /></title>
-		<script src="<c:url value="/js/dojo-release-1.6.1/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
+		<script src="<c:url value="/js/dojo-release-1.7.0b2/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
 		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
-		<link rel="stylesheet" href="<c:url value="/js/dojo-release-1.6.1/dijit/themes/tundra/tundra.css"/>" />
+		<link rel="stylesheet" href="<c:url value="/js/dojo-release-1.7.0b2/dijit/themes/tundra/tundra.css"/>" />
 		<script type="text/javascript">
 					
 		</script>

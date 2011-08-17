@@ -1,0 +1,95 @@
+require.built();
+/*
+	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
+	Available via Academic Free License >= 2.1 OR the modified BSD license.
+	see: http://dojotoolkit.org/license for details
+*/
+
+define("dojox/lang/oo/aop", ["dojo","dijit","dojox","dojox/lang/oo/Decorator","dojox/lang/oo/general"], function(dojo, dijit, dojox){
+dojo.getObject("dojox.lang.oo.aop", 1);
+/* builder delete begin
+dojo.provide("dojox.lang.oo.aop");
+
+
+ builder delete end */
+/* builder delete begin
+dojo.require("dojox.lang.oo.Decorator");
+
+ builder delete end */
+/* builder delete begin
+dojo.require("dojox.lang.oo.general");
+
+
+ builder delete end */
+(function(){
+	var oo = dojox.lang.oo, md = oo.makeDecorator, oog = oo.general, ooa = oo.aop,
+		isF = dojo.isFunction;
+
+	// five decorators implementing light-weight AOP weaving
+
+	/*=====
+	ooa.before = md(function(name, newValue, oldValue){
+		// summary: creates a "before" advise, by calling new function
+		// before the old one
+
+		// dummy body
+	});
+
+	ooa.around = md(function(name, newValue, oldValue){
+		// summary: creates an "around" advise,
+		// the previous value is passed as a first argument and can be null,
+		// arguments are passed as a second argument
+
+		// dummy body
+	});
+	=====*/
+
+	// reuse existing decorators
+	ooa.before = oog.before;
+	ooa.around = oog.wrap;
+
+	ooa.afterReturning = md(function(name, newValue, oldValue){
+		// summary: creates an "afterReturning" advise,
+		// the returned value is passed as the only argument
+		return isF(oldValue) ?
+			function(){
+				var ret = oldValue.apply(this, arguments);
+				newValue.call(this, ret);
+				return ret;
+			} : function(){ newValue.call(this); };
+	});
+
+	ooa.afterThrowing = md(function(name, newValue, oldValue){
+		// summary: creates an "afterThrowing" advise,
+		// the exception is passed as the only argument
+		return isF(oldValue) ?
+			function(){
+				var ret;
+				try{
+					ret = oldValue.apply(this, arguments);
+				}catch(e){
+					newValue.call(this, e);
+					throw e;
+				}
+				return ret;
+			} : oldValue;
+	});
+
+	ooa.after = md(function(name, newValue, oldValue){
+		// summary: creates an "after" advise,
+		// it takes no arguments
+		return isF(oldValue) ?
+			function(){
+				var ret;
+				try{
+					ret = oldValue.apply(this, arguments);
+				}finally{
+					newValue.call(this);
+				}
+				return ret;
+			} : function(){ newValue.call(this); }
+	});
+})();
+
+return dojo.getObject("dojox.lang.oo.aop");});
+require(["dojox/lang/oo/aop"]);
