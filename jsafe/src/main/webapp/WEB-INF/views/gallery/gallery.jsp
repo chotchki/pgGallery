@@ -4,7 +4,11 @@
 <title>Gallery</title>
 <style type="text/css">
 	#uploader {
-		/*display: inline;  Dojo 1.6 Bug Workaround */
+		display: inline;  /* Dojo 1.6/1.7 Bug Workaround */
+	}
+	.content ul.items li {
+		height: <c:out value="${settings.thumbHeight}"/>px;
+		width: <c:out value="${settings.thumbWidth}"/>px;
 	}
 </style>
 <script type="text/javascript">

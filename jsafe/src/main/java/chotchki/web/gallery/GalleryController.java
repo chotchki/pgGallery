@@ -1,5 +1,6 @@
 package chotchki.web.gallery;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import chotchki.db.pojo.Album;
 import chotchki.db.service.AlbumService;
 import chotchki.db.service.ItemService;
+import chotchki.db.service.SiteSettingsService;
 
 @Controller
 public class GalleryController {
@@ -33,9 +35,12 @@ public class GalleryController {
 
 	@Autowired
 	private ItemService itemService = null;
+	
+	@Autowired SiteSettingsService siteSettingsService = null;
 
 	@RequestMapping("/gallery")
 	public String showDefault(Model mod) {
+		mod.addAttribute("settings", siteSettingsService.get());
 		mod.addAttribute("childAlbums", albumService.getRoot());
 		mod.addAttribute("childItems", itemService.getNonAlbum());
 		return "gallery/gallery";
@@ -54,6 +59,8 @@ public class GalleryController {
 			mod.addAttribute("error", "Could not find album");
 			return "gallery/gallery";
 		}
+		
+		mod.addAttribute("settings", siteSettingsService.get());
 		mod.addAttribute("breadcrumbs", albumService.getBreadcrumbById(album));
 		mod.addAttribute("childAlbums", albumService.getByParent(album));
 		mod.addAttribute("childItems", itemService.getByAlbum(album));
@@ -85,10 +92,19 @@ public class GalleryController {
 	}
 	
 	@RequestMapping(value="/gallery/upload", method = RequestMethod.POST)
-	public String uploadItems(Model mod, @RequestParam("parentId") BigDecimal parentId, MultipartHttpServletRequest req) {
+	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req) {
 		List<MultipartFile> items = req.getFiles("items");
-		
-		return viewAlbum(mod, parentId);
+		try {
+			itemService.uploadAll(items, parentId);
+		} catch (IOException e) {
+			log.error("Had an issue uploading files", e);
+			mod.addAttribute("error", "Could not upload files.");
+		}
+		if(parentId != null){
+			return viewAlbum(mod, parentId);
+		} else {
+			return showDefault(mod);
+		}
 	}
 
 	public void setAlbumService(AlbumService albumService) {
@@ -97,5 +113,9 @@ public class GalleryController {
 
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
+	}
+	
+	public void setSiteSettingsService(SiteSettingsService siteSettingsService) {
+		this.siteSettingsService = siteSettingsService;
 	}
 }

@@ -215,11 +215,6 @@ body div#message p.success {
 	padding-right: 10px;
 }
 
-.content ul.items li {
-	height: 100px;
-	width: 100px;
-}
-
 .side-bar {
 	float: right;
     padding-top: 10px;

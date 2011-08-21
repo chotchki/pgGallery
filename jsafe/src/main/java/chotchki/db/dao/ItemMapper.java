@@ -20,7 +20,7 @@ public interface ItemMapper {
 	@Select("select * from items where id = #{id}")
 	public Item getById(@Param("id") BigDecimal id);
 	
-	@Insert("insert into items(albumId, name, mimeType) values (#{albumId}, #{name}, #{mimeType}) returning *")
+	@Insert("insert into items(\"albumId\", name, \"mimeType\") values (#{albumId}, #{name}, #{mimeType}) returning *")
 	public Item create(Item item);
 	
 	@Update("update items set \"albumId\" = #{albumId}, name = #{name}, \"mimeType\" = #{mimeType} where id = #{id}")

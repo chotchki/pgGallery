@@ -2,11 +2,11 @@ package chotchki.db.pojo;
 
 public class SiteSettings {
 	private int id = 1;
-	private int itemsPerPage = -1;
-	private int thumbHeight = -1;
-	private int thumbWidth = -1;
-	private int mainHeight = -1;
-	private int mainWidth = -1;
+	private int itemsPerPage = 24;
+	private int thumbHeight = 100;
+	private int thumbWidth = 100;
+	private int mainHeight = 500;
+	private int mainWidth = 500;
 	
 	public int getId() {
 		return id;
