@@ -3,6 +3,7 @@ package chotchki.db.dao;
 import java.math.BigDecimal;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -13,6 +14,7 @@ public interface ItemContentMapper {
 	@Select("select * from \"itemContent\" where \"itemId\" = #{itemId} and active = true")
 	public ItemContent getActiveById(@Param("itemId") BigDecimal itemId);
 	
+	@Options(useGeneratedKeys=true) 
 	@Insert("insert into \"itemContent\"(\"itemId\", content, active, \"contentHash\") values (#{itemId}, #{content}, #{active}, #{contentHash})")
 	public void create(ItemContent content);
 	

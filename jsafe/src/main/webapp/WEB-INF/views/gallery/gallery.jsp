@@ -59,7 +59,7 @@
 					<span>Upload Items</span>
 					<div dojoType="dijit.TooltipDialog">
 						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/upload"/>" method="POST">
-							<input name="items" multiple="true" type="file" dojoType="dojox.form.Uploader" label="Select Some Files" id="uploader" />
+							<input name="item" multiple="true" type="file" dojoType="dojox.form.Uploader" label="Select Some Files" id="uploader" />
 							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
 							<input dojoType="dijit.form.Button" type="submit" label="Upload" />
 						</div>

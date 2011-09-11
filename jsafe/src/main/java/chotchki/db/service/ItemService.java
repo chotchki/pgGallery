@@ -2,6 +2,8 @@ package chotchki.db.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,28 +37,30 @@ public class ItemService {
 	}
 
 	@Transactional
-	public Item create(Item item){
-		return itemMapper.create(item);
+	public void create(Item item){
+		itemMapper.create(item);
 	}
 	
 	@Transactional
-	public void uploadAll(List<MultipartFile> files, BigDecimal albumId) throws IOException{
+	public void uploadAll(List<MultipartFile> files, BigDecimal albumId) throws IOException, NoSuchAlgorithmException{
 		for(MultipartFile f : files){
 			upload(f, albumId);
 		}
 	}
 	
 	@Transactional
-	public void upload(MultipartFile file, BigDecimal albumId) throws IOException{
+	public void upload(MultipartFile file, BigDecimal albumId) throws IOException, NoSuchAlgorithmException{
 		Item item = new Item();
 		item.setAlbumId(albumId);
-		item.setName(file.getName());
+		item.setName(file.getOriginalFilename());
 		item.setMimeType(file.getContentType());
-		item = create(item);
+		create(item);
 		
 		ItemContent content = new ItemContent();
+		content.setItemId(item.getId());
 		content.setActive(true);
 		content.setContent(file.getBytes());
+		content.setContentHash(MessageDigest.getInstance("SHA-256").digest(file.getBytes()));
 		itemContentMapper.create(content);
 	}
 	

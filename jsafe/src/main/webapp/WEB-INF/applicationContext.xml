@@ -14,14 +14,12 @@
 	
 	<!-- Setup Spring Security -->
 	<security:http auto-config="true" use-expressions="true">
-		<security:intercept-url pattern="/font/**"
-			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<security:intercept-url pattern="/styles/**"
-			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-				<security:intercept-url pattern="/profile*"
-			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<security:intercept-url pattern="/**"
-			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url pattern="/font/**"		access="permitAll" />
+		<security:intercept-url pattern="/js/**"		access="permitAll" />
+		<security:intercept-url pattern="/styles/**"	access="permitAll" />
+		
+		<security:intercept-url pattern="/profile*"		access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**"			access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 
 		<security:form-login login-page='/login' />
 	</security:http>

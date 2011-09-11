@@ -1,6 +1,5 @@
 package chotchki.web.gallery;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
@@ -93,10 +92,11 @@ public class GalleryController {
 	
 	@RequestMapping(value="/gallery/upload", method = RequestMethod.POST)
 	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req) {
-		List<MultipartFile> items = req.getFiles("items");
+		log.debug("got here");
+		List<MultipartFile> items = req.getFiles("items[]");
 		try {
 			itemService.uploadAll(items, parentId);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			log.error("Had an issue uploading files", e);
 			mod.addAttribute("error", "Could not upload files.");
 		}
