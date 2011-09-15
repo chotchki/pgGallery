@@ -27,7 +27,7 @@ import chotchki.db.service.SiteSettingsService;
 
 @Controller
 public class GalleryController {
-	protected Logger log = LoggerFactory.getLogger(this.getClass());
+	protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private AlbumService albumService = null;

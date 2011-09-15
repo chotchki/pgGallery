@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,9 @@ public class ItemService {
 	
 	@Autowired
 	private ItemContentMapper itemContentMapper = null;
+	
+	@Autowired
+	private ThumbnailService thumbnailService = null;
 	
 	public List<Item> getNonAlbum(){
 		return itemMapper.getNonAlbum();
@@ -42,14 +46,14 @@ public class ItemService {
 	}
 	
 	@Transactional
-	public void uploadAll(List<MultipartFile> files, BigDecimal albumId) throws IOException, NoSuchAlgorithmException{
+	public void uploadAll(List<MultipartFile> files, BigDecimal albumId) throws IOException, NoSuchAlgorithmException, InterruptedException, IM4JavaException{
 		for(MultipartFile f : files){
 			upload(f, albumId);
 		}
 	}
 	
 	@Transactional
-	public void upload(MultipartFile file, BigDecimal albumId) throws IOException, NoSuchAlgorithmException{
+	public void upload(MultipartFile file, BigDecimal albumId) throws IOException, NoSuchAlgorithmException, InterruptedException, IM4JavaException{
 		Item item = new Item();
 		item.setAlbumId(albumId);
 		item.setName(file.getOriginalFilename());
@@ -62,6 +66,7 @@ public class ItemService {
 		content.setContent(file.getBytes());
 		content.setContentHash(MessageDigest.getInstance("SHA-256").digest(file.getBytes()));
 		itemContentMapper.create(content);
+		thumbnailService.create(content);
 	}
 	
 	public void update(Item item){
@@ -74,5 +79,9 @@ public class ItemService {
 
 	public void setItemContentMapper(ItemContentMapper itemContentMapper) {
 		this.itemContentMapper = itemContentMapper;
+	}
+
+	public void setThumbnailService(ThumbnailService thumbnailService) {
+		this.thumbnailService = thumbnailService;
 	}
 }

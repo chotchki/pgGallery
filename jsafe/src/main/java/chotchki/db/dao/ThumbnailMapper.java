@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Select;
 import chotchki.db.pojo.Thumbnail;
 
 public interface ThumbnailMapper {
-	@Select("select * from thumbnails where contentId = #{contentId}")
+	@Select("select * from thumbnails where \"contentId\" = #{contentId}")
 	public List<Thumbnail> getByContentId(@Param("contentId") BigDecimal contentId);
 	
-	@Insert("insert into thumbnails(contentId, height, width, content) values (#{contentId}, #{height}, #{width}, #{content}) returning *")
-	public Thumbnail create(Thumbnail thumbnail);
+	@Insert("insert into thumbnails(\"contentId\", height, width, content) values (#{contentId}, #{height}, #{width}, #{content})")
+	public void create(Thumbnail thumbnail);
 }
