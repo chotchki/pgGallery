@@ -1,7 +1,10 @@
 package chotchki.db.service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,25 +26,33 @@ public class ThumbnailService {
 
 	@Autowired
 	private ThumbnailMapper thumbnailMapper = null;
+	
+	public Thumbnail getMainByItemId(@Param("itemId") BigDecimal itemId){
+		return thumbnailMapper.getMainByContentId(itemId);
+	}
+
+	public Thumbnail getThumbByItemId(@Param("itemId") BigDecimal itemId){
+		return thumbnailMapper.getThumbByContentId(itemId);
+	}
 
 	@Transactional
 	public void create(ItemContent content) throws IOException, InterruptedException, IM4JavaException {
 		SiteSettings settings = siteSettingsMapper.get();
 
-		Thumbnail small = new Thumbnail();
-		small.setContentId(content.getId());
-		small.setHeight(settings.getThumbHeight());
-		small.setWidth(settings.getThumbWidth());
-		small.setContent(imageService.scale(content.getContent(), settings.getThumbHeight(),
-				settings.getThumbWidth()));
-		thumbnailMapper.create(small);
+		Thumbnail thumb = new Thumbnail();
+		thumb.setContentId(content.getId());
+		thumb.setHeight(settings.getThumbHeight());
+		thumb.setWidth(settings.getThumbWidth());
+		thumb.setType("thumb");
+		thumb.setContent(imageService.scale(content.getContent(), settings.getThumbHeight(), settings.getThumbWidth()));
+		thumbnailMapper.create(thumb);
 
 		Thumbnail main = new Thumbnail();
 		main.setContentId(content.getId());
 		main.setHeight(settings.getMainHeight());
 		main.setWidth(settings.getMainWidth());
-		main.setContent(imageService.scale(content.getContent(), settings.getMainHeight(),
-				settings.getMainWidth()));
+		main.setType("main");
+		main.setContent(imageService.scale(content.getContent(), settings.getMainHeight(), settings.getMainWidth()));
 		thumbnailMapper.create(main);
 	}
 

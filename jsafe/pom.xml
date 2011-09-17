@@ -3,11 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>us.chotchki</groupId>
-	<artifactId>jsafe</artifactId>
+	<artifactId>chotchki-web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>JSafe</name>
-	<description>Password Manager</description>
+	<name>Chotchki Web</name>
 	<properties>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 		<org.slf4j.version>1.6.1</org.slf4j.version>
@@ -178,4 +177,5 @@
 			<version>2.0.1</version>
 		</dependency>
 	</dependencies>
+	<description>This is an over arching project that provides any functionality I need for my website.</description>
 </project>

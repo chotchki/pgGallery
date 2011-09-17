@@ -9,6 +9,7 @@
 	.content ul.items li {
 		height: <c:out value="${settings.thumbHeight}"/>px;
 		width: <c:out value="${settings.thumbWidth}"/>px;
+		display: inline-block;
 	}
 </style>
 <script type="text/javascript">
@@ -38,16 +39,16 @@
 		<br />
 		<ul class="items">
 			<c:forEach var="a" items="${childAlbums}">
-				<li><a href="<c:url value="/gallery/${a.id}"/>"><c:out value="${a.name}" /></a></li>
+				<li><a href="<c:url value="/gallery/album/${a.id}"/>"><c:out value="${a.name}" /></a></li>
 			</c:forEach>
 			<c:forEach var="i" items="${childItems}">
-
+				<li><img src="<c:url value="/gallery/item/${i.id}/thumb"/>" /></li>
 			</c:forEach>
 			<li>
 				<div dojoType="dijit.form.DropDownButton">
 					<span>New Album</span>
 					<div dojoType="dijit.TooltipDialog">
-						<div dojoType="dijit.form.Form" action="<c:url value="/gallery/create"/>" method="POST">
+						<div dojoType="dijit.form.Form" action="<c:url value="/gallery/album/create"/>" method="POST">
 							<label for="name"> Name:</label><input dojoType="dijit.form.TextBox" id="name" name="name">
 							<input id="isPublic" name="isPublic" dojoType="dijit.form.CheckBox" value="true" /><label for="isPublic">Public?</label>
 							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
@@ -58,7 +59,7 @@
 				<div dojoType="dijit.form.DropDownButton">
 					<span>Upload Items</span>
 					<div dojoType="dijit.TooltipDialog">
-						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/upload"/>" method="POST">
+						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
 							<script type="dojo/method" event="onSubmit">
 								if (this.validate()) {
 									return true;

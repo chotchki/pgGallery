@@ -1,9 +1,12 @@
 package chotchki.web.gallery;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -21,11 +24,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import chotchki.db.pojo.Album;
+import chotchki.db.pojo.Item;
+import chotchki.db.pojo.Thumbnail;
 import chotchki.db.service.AlbumService;
 import chotchki.db.service.ItemService;
 import chotchki.db.service.SiteSettingsService;
+import chotchki.db.service.ThumbnailService;
 
 @Controller
+@RequestMapping("/gallery")
 public class GalleryController {
 	protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -35,9 +42,13 @@ public class GalleryController {
 	@Autowired
 	private ItemService itemService = null;
 	
-	@Autowired SiteSettingsService siteSettingsService = null;
+	@Autowired 
+	private SiteSettingsService siteSettingsService = null;
+	
+	@Autowired
+	private ThumbnailService thumbnailService = null;
 
-	@RequestMapping("/gallery")
+	@RequestMapping(method = RequestMethod.GET)
 	public String showDefault(Model mod) {
 		mod.addAttribute("settings", siteSettingsService.get());
 		mod.addAttribute("childAlbums", albumService.getRoot());
@@ -45,7 +56,7 @@ public class GalleryController {
 		return "gallery/gallery";
 	}
 
-	@RequestMapping(value = "/gallery/{album}", method = RequestMethod.GET)
+	@RequestMapping(value = "/album/{album}", method = RequestMethod.GET)
 	public String viewAlbum(Model mod, @PathVariable("album") BigDecimal album) {
 		try {
 			Album valid = albumService.getById(album);
@@ -66,7 +77,7 @@ public class GalleryController {
 		return "gallery/gallery";
 	}
 
-	@RequestMapping(value = "/gallery/create", method = RequestMethod.POST)
+	@RequestMapping(value = "/album/create", method = RequestMethod.POST)
 	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result) {
 		if (result.hasErrors()) {
 			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
@@ -90,7 +101,7 @@ public class GalleryController {
 		}
 	}
 	
-	@RequestMapping(value="/gallery/upload", method = RequestMethod.POST)
+	@RequestMapping(value="/item/upload", method = RequestMethod.POST)
 	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req) {
 		log.debug("got here");
 		List<MultipartFile> items = req.getFiles("items[]");
@@ -106,6 +117,26 @@ public class GalleryController {
 			return showDefault(mod);
 		}
 	}
+	
+	@RequestMapping(value = "/item/{itemId}/thumb")
+	public void viewThumbnail(Model mod, @PathVariable("itemId") BigDecimal itemId, HttpServletResponse res, OutputStream output){
+		try{
+			Item item = this.itemService.getById(itemId);
+			res.setContentType(item.getMimeType());
+			
+			Thumbnail thumb = this.thumbnailService.getThumbByItemId(item.getId());
+			res.setContentLength(thumb.getContent().length);
+			output.write(thumb.getContent());
+		} catch (Exception e){
+			log.error("Had an error getting the thumbnail", e);
+			try {
+				res.sendError(500);
+			} catch (IOException e1) {
+				log.error("Could not respond with a 500 error", e1);
+			}
+			return;
+		}
+	}
 
 	public void setAlbumService(AlbumService albumService) {
 		this.albumService = albumService;
@@ -117,5 +148,9 @@ public class GalleryController {
 	
 	public void setSiteSettingsService(SiteSettingsService siteSettingsService) {
 		this.siteSettingsService = siteSettingsService;
+	}
+
+	public void setThumbnailService(ThumbnailService thumbnailService) {
+		this.thumbnailService = thumbnailService;
 	}
 }

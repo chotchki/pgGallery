@@ -8,6 +8,7 @@ public class Thumbnail {
 	private int height = -1;
 	private int width = -1;
 	private byte[] content = null;
+	private String type = null;
 	
 	public BigDecimal getId() {
 		return id;
@@ -38,5 +39,11 @@ public class Thumbnail {
 	}
 	public void setContent(byte[] content) {
 		this.content = content;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 }
