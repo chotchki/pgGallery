@@ -2,7 +2,6 @@ package chotchki.db.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -12,10 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import chotchki.db.dao.ItemContentMapper;
 import chotchki.db.dao.ItemMapper;
 import chotchki.db.pojo.Item;
-import chotchki.db.pojo.ItemContent;
 
 @Service
 public class ItemService {
@@ -23,10 +20,7 @@ public class ItemService {
 	private ItemMapper itemMapper = null;
 	
 	@Autowired
-	private ItemContentMapper itemContentMapper = null;
-	
-	@Autowired
-	private ThumbnailService thumbnailService = null;
+	private ItemContentService itemContentService = null;
 	
 	public List<Item> getNonAlbum(){
 		return itemMapper.getNonAlbum();
@@ -60,28 +54,10 @@ public class ItemService {
 		item.setMimeType(file.getContentType());
 		create(item);
 		
-		ItemContent content = new ItemContent();
-		content.setItemId(item.getId());
-		content.setActive(true);
-		content.setContent(file.getBytes());
-		content.setContentHash(MessageDigest.getInstance("SHA-256").digest(file.getBytes()));
-		itemContentMapper.create(content);
-		thumbnailService.create(content);
+		itemContentService.upload(item, file.getBytes());
 	}
 	
 	public void update(Item item){
 		itemMapper.update(item);
-	}
-
-	public void setItemMapper(ItemMapper itemMapper) {
-		this.itemMapper = itemMapper;
-	}
-
-	public void setItemContentMapper(ItemContentMapper itemContentMapper) {
-		this.itemContentMapper = itemContentMapper;
-	}
-
-	public void setThumbnailService(ThumbnailService thumbnailService) {
-		this.thumbnailService = thumbnailService;
 	}
 }

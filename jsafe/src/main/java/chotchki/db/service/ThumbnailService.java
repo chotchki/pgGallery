@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,15 +27,20 @@ public class ThumbnailService {
 	private ThumbnailMapper thumbnailMapper = null;
 	
 	public Thumbnail getMainByItemId(@Param("itemId") BigDecimal itemId){
-		return thumbnailMapper.getMainByContentId(itemId);
+		return thumbnailMapper.getMainByItemId(itemId);
 	}
 
 	public Thumbnail getThumbByItemId(@Param("itemId") BigDecimal itemId){
-		return thumbnailMapper.getThumbByContentId(itemId);
+		return thumbnailMapper.getThumbByItemId(itemId);
+	}
+	
+	@Transactional
+	public void create(Thumbnail thumb) {
+		thumbnailMapper.create(thumb);
 	}
 
 	@Transactional
-	public void create(ItemContent content) throws IOException, InterruptedException, IM4JavaException {
+	public void upload(ItemContent content) throws IOException, InterruptedException, IM4JavaException {
 		SiteSettings settings = siteSettingsMapper.get();
 
 		Thumbnail thumb = new Thumbnail();
@@ -45,7 +49,7 @@ public class ThumbnailService {
 		thumb.setWidth(settings.getThumbWidth());
 		thumb.setType("thumb");
 		thumb.setContent(imageService.scale(content.getContent(), settings.getThumbHeight(), settings.getThumbWidth()));
-		thumbnailMapper.create(thumb);
+		create(thumb);
 
 		Thumbnail main = new Thumbnail();
 		main.setContentId(content.getId());
@@ -53,7 +57,7 @@ public class ThumbnailService {
 		main.setWidth(settings.getMainWidth());
 		main.setType("main");
 		main.setContent(imageService.scale(content.getContent(), settings.getMainHeight(), settings.getMainWidth()));
-		thumbnailMapper.create(main);
+		create(main);
 	}
 
 	public void setImageService(ImageService imageService) {

@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import chotchki.AjaxResponse;
 import chotchki.db.pojo.Album;
 import chotchki.db.pojo.Item;
 import chotchki.db.pojo.Thumbnail;
 import chotchki.db.service.AlbumService;
+import chotchki.db.service.ItemContentService;
 import chotchki.db.service.ItemService;
 import chotchki.db.service.SiteSettingsService;
 import chotchki.db.service.ThumbnailService;
@@ -41,6 +44,9 @@ public class GalleryController {
 
 	@Autowired
 	private ItemService itemService = null;
+	
+	@Autowired
+	private ItemContentService itemContentService = null;
 	
 	@Autowired 
 	private SiteSettingsService siteSettingsService = null;
@@ -103,7 +109,6 @@ public class GalleryController {
 	
 	@RequestMapping(value="/item/upload", method = RequestMethod.POST)
 	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req) {
-		log.debug("got here");
 		List<MultipartFile> items = req.getFiles("items[]");
 		try {
 			itemService.uploadAll(items, parentId);
@@ -136,6 +141,30 @@ public class GalleryController {
 			}
 			return;
 		}
+	}
+	
+	@RequestMapping(value = "/item/{itemId}/rotate/left")
+	public @ResponseBody AjaxResponse rotateLeft(Model mod, @PathVariable("itemId") BigDecimal itemId) {
+		AjaxResponse a = new AjaxResponse();
+		try {
+			itemContentService.rotateLeftByItemId(itemId);
+		} catch(Exception e) {
+			log.error("Had an error rotating the image", e);
+			a.error(e.getLocalizedMessage());
+		}
+		return a;
+	}
+	
+	@RequestMapping(value = "/item/{itemId}/rotate/right")
+	public @ResponseBody AjaxResponse rotateRight(Model mod, @PathVariable("itemId") BigDecimal itemId) {
+		AjaxResponse a = new AjaxResponse();
+		try {
+			itemContentService.rotateRightByItemId(itemId);
+		} catch(Exception e) {
+			log.error("Had an error rotating the image", e);
+			a.error(e.getLocalizedMessage());
+		}
+		return a;
 	}
 
 	public void setAlbumService(AlbumService albumService) {

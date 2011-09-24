@@ -15,7 +15,7 @@ public interface ThumbnailMapper {
 			"and t.\"contentId\" = i.id " +
 			"and i.active = true " +
 			"and i.\"itemId\" = #{itemId}")
-	public Thumbnail getMainByContentId(@Param("itemId") BigDecimal itemId);
+	public Thumbnail getMainByItemId(@Param("itemId") BigDecimal itemId);
 	
 	@Select("select t.* " +
 			"from thumbnails t, \"itemContent\" i " +
@@ -23,7 +23,7 @@ public interface ThumbnailMapper {
 			"and t.\"contentId\" = i.id " +
 			"and i.active = true " +
 			"and i.\"itemId\" = #{itemId}")
-	public Thumbnail getThumbByContentId(@Param("itemId") BigDecimal itemId);
+	public Thumbnail getThumbByItemId(@Param("itemId") BigDecimal itemId);
 	
 	@Insert("insert into thumbnails(\"contentId\", height, width, content, type) values (#{contentId}, #{height}, #{width}, #{content}, #{type})")
 	public void create(Thumbnail thumbnail);

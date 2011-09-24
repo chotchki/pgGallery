@@ -11,6 +11,9 @@
 		width: <c:out value="${settings.thumbWidth}"/>px;
 		display: inline-block;
 	}
+	.tools {
+		display: none;
+	}
 </style>
 <script type="text/javascript">
 	dojo.require("dijit.form.Form");
@@ -20,6 +23,21 @@
 	dojo.require("dijit.form.CheckBox");
 	dojo.require("dojox.form.Uploader");
 	dojo.require("dojox.form.uploader.plugins.HTML5");
+	
+	dojo.ready(function(){
+		dojo.query(".items .image").forEach(function(node, index, arr){
+			dojo.connect(node, "onmouseenter", function(e){
+				dojo.byId("> .tools", e.target).forEach(function(node, index, arr){
+					dojo.style(node, "display", "block");
+				});
+			});
+			dojo.connect(node, "onmouseleave", function(e){
+				dojo.byId("> .tools", e.target).forEach(function(node, index, arr){
+					dojo.style(node, "display", "none");
+				});
+			});
+		});
+	});
 </script>
 </head>
 <body>
@@ -42,7 +60,12 @@
 				<li><a href="<c:url value="/gallery/album/${a.id}"/>"><c:out value="${a.name}" /></a></li>
 			</c:forEach>
 			<c:forEach var="i" items="${childItems}">
-				<li><img src="<c:url value="/gallery/item/${i.id}/thumb"/>" /></li>
+				<li>
+					<div class="image">
+						<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
+						<span class="tools"><a href="/item/${i.id}/rotate/left">Left</a><a href="/item/${i.id}/rotate/right">Right</a></span>
+					</div>
+				</li>
 			</c:forEach>
 			<li>
 				<div dojoType="dijit.form.DropDownButton">
@@ -60,14 +83,6 @@
 					<span>Upload Items</span>
 					<div dojoType="dijit.TooltipDialog">
 						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
-							<script type="dojo/method" event="onSubmit">
-								if (this.validate()) {
-									return true;
-								} else {
-									alert('Form contains invalid data.  Please correct first');
-									return false;
-								}
-							</script>
 							<input name="item" multiple="true" type="file" dojoType="dojox.form.Uploader" label="Select Some Files" id="uploader" />
 							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
 							<input dojoType="dijit.form.Button" type="submit" label="Upload" />

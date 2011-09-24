@@ -225,7 +225,8 @@ body div#message p.success {
 	background-color: #FFFFFF;
 	border: 1px solid #DBE0C8;
 	color: #555555;
-	font-size: 0.8rem;
+	font-size: 12px;
+	font-size: 1.2rem;
 	margin: 0 0 2.3em;
 	padding-bottom: 1em;
 	width: 305px;
@@ -236,8 +237,8 @@ body div#message p.success {
 	border-bottom: 1px solid #CAD0B8;
 	color: #444444;
 	font-family: Georgia;
-	font-size: 14px;
-	font-size: 1.4rem;
+	font-size: 16px;
+	font-size: 1.6rem;
 	font-variant: small-caps;
 	font-weight: normal;
 	letter-spacing: 2px;

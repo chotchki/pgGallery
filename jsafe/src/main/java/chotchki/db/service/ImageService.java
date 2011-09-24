@@ -20,6 +20,37 @@ public class ImageService {
 	static {
 		cmd.setSearchPath("C:\\Program Files (x86)\\GraphicsMagick-1.3.12-Q8");
 	}
+	
+	public byte[] rotateLeft(byte[] input) throws IOException, InterruptedException, IM4JavaException {
+		return rotate(input, -90);
+	}
+	
+	public byte[] rotateRight(byte[] input) throws IOException, InterruptedException, IM4JavaException {
+		return rotate(input, 90);
+	}
+	
+	private byte[] rotate(byte[] input, double degrees) throws IOException, InterruptedException, IM4JavaException {
+		File inputFile = null;
+		File outputFile = null;
+		try {
+			inputFile = File.createTempFile("input", ".tmp");
+			outputFile = File.createTempFile("output", ".tmp");
+			
+			IMOperation op = new IMOperation();
+			op.addImage(inputFile.getAbsolutePath());
+			op.rotate(degrees);
+			op.addImage(outputFile.getAbsolutePath());
+			log.debug("Command will be {}", op);
+			synchronized (cmd) {
+				cmd.run(op);
+			}
+			
+			return FileUtils.readFileToByteArray(outputFile);
+		} finally {
+			inputFile.delete();
+			outputFile.delete();
+		}
+	}
 
 	public byte[] scale(byte[] input, int height, int width)
 			throws IOException, InterruptedException, IM4JavaException {
