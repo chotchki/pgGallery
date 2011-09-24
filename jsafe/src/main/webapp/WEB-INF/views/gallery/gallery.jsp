@@ -27,12 +27,12 @@
 	dojo.ready(function(){
 		dojo.query(".items .image").forEach(function(node, index, arr){
 			dojo.connect(node, "onmouseenter", function(e){
-				dojo.byId("> .tools", e.target).forEach(function(node, index, arr){
+				dojo.query("> .tools", e.currentTarget).forEach(function(node, index, arr){
 					dojo.style(node, "display", "block");
 				});
 			});
 			dojo.connect(node, "onmouseleave", function(e){
-				dojo.byId("> .tools", e.target).forEach(function(node, index, arr){
+				dojo.query("> .tools", e.currentTarget).forEach(function(node, index, arr){
 					dojo.style(node, "display", "none");
 				});
 			});
@@ -63,7 +63,7 @@
 				<li>
 					<div class="image">
 						<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
-						<span class="tools"><a href="/item/${i.id}/rotate/left">Left</a><a href="/item/${i.id}/rotate/right">Right</a></span>
+						<span class="tools"><a href="<c:url value="/gallery/item/${i.id}/rotate/left"/>">Left</a><a href="<c:url value="/gallery/item/${i.id}/rotate/right"/>">Right</a></span>
 					</div>
 				</li>
 			</c:forEach>

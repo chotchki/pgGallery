@@ -36,6 +36,8 @@ public class ImageService {
 			inputFile = File.createTempFile("input", ".tmp");
 			outputFile = File.createTempFile("output", ".tmp");
 			
+			FileUtils.writeByteArrayToFile(inputFile, input);
+			
 			IMOperation op = new IMOperation();
 			op.addImage(inputFile.getAbsolutePath());
 			op.rotate(degrees);
