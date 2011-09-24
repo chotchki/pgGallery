@@ -7,12 +7,20 @@
 		display: inline;  /* Dojo 1.6/1.7 Bug Workaround */
 	}
 	.content ul.items li {
-		height: <c:out value="${settings.thumbHeight}"/>px;
-		width: <c:out value="${settings.thumbWidth}"/>px;
+		height: <c:out value="${settings.thumbHeight + 10}"/>px;
+		width: <c:out value="${settings.thumbWidth + 10}"/>px;
 		display: inline-block;
 	}
 	.tools {
+		position: relative;
+		bottom: 15px;
 		display: none;
+	}
+	.tools a:nth-child(1){
+		float: left;
+	}
+	.tools a:nth-child(2){
+		float: right;
 	}
 </style>
 <script type="text/javascript">
@@ -27,11 +35,13 @@
 	dojo.ready(function(){
 		dojo.query(".items .image").forEach(function(node, index, arr){
 			dojo.connect(node, "onmouseenter", function(e){
+				dojo.style(e.currentTarget, "border", "1px solid #C0C3AC");
 				dojo.query("> .tools", e.currentTarget).forEach(function(node, index, arr){
 					dojo.style(node, "display", "block");
 				});
 			});
 			dojo.connect(node, "onmouseleave", function(e){
+				dojo.style(e.currentTarget, "border", "");
 				dojo.query("> .tools", e.currentTarget).forEach(function(node, index, arr){
 					dojo.style(node, "display", "none");
 				});
