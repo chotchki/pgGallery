@@ -10,6 +10,7 @@
 		<script type="text/javascript">
 					
 		</script>
+		
 		<sitemesh:write property="head" />
 	</head>
 	<body class="tundra">

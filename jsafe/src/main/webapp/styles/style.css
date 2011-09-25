@@ -176,7 +176,7 @@ body div#message p.success {
 .content-bar {
 	float: left;
 	padding: 20px;
-	width: 625px;
+	width: 725px;
 }
 
 .content {
@@ -184,7 +184,7 @@ body div#message p.success {
     border: 1px solid #C0C3AC;
     margin-bottom: 15px;
     padding: 15px;
-    width: 600px;
+    width: 700px;
 }
 
 .content a {
@@ -218,7 +218,7 @@ body div#message p.success {
 .side-bar {
 	float: right;
     padding-top: 10px;
-    width: 330px;
+    width: 230px;
 }
 
 .side-bar-box {
@@ -229,7 +229,7 @@ body div#message p.success {
 	font-size: 1.2rem;
 	margin: 0 0 2.3em;
 	padding-bottom: 1em;
-	width: 305px;
+	width: 205px;
 }
 
 .side-bar-box h3 {

@@ -6,10 +6,15 @@
 	#uploader {
 		display: inline;  /* Dojo 1.6/1.7 Bug Workaround */
 	}
-	.content ul.items li {
-		height: <c:out value="${settings.thumbHeight + 10}"/>px;
-		width: <c:out value="${settings.thumbWidth + 10}"/>px;
+	.items li {
+		height: <c:out value="${settings.thumbHeight + 30}"/>px;
+		width: <c:out value="${settings.thumbWidth + 30}"/>px;
 		display: inline-block;
+	}
+	.items img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
 	}
 	.tools {
 		position: relative;
@@ -33,19 +38,40 @@
 	dojo.require("dojox.form.uploader.plugins.HTML5");
 	
 	dojo.ready(function(){
-		dojo.query(".items .image").forEach(function(node, index, arr){
-			dojo.connect(node, "onmouseenter", function(e){
-				dojo.style(e.currentTarget, "border", "1px solid #C0C3AC");
-				dojo.query("> .tools", e.currentTarget).forEach(function(node, index, arr){
+		dojo.query(".items li").forEach(function(node, index, arr){
+			dojo.connect(node, "onmouseenter", null, function(e){
+				//dojo.style(e.currentTarget, "border", "1px solid #C0C3AC");
+				dojo.query(".tools", e.currentTarget).forEach(function(node, index, arr){
 					dojo.style(node, "display", "block");
 				});
 			});
-			dojo.connect(node, "onmouseleave", function(e){
-				dojo.style(e.currentTarget, "border", "");
-				dojo.query("> .tools", e.currentTarget).forEach(function(node, index, arr){
+			dojo.connect(node, "onmouseleave", null, function(e){
+				//dojo.style(e.currentTarget, "border", "");
+				dojo.query(".tools", e.currentTarget).forEach(function(node, index, arr){
 					dojo.style(node, "display", "none");
 				});
 			});
+		});
+		dojo.query(".tools a").forEach(function(node,index,arr){
+			dojo.connect(node, "onclick", null, function(e){
+				e.preventDefault();
+				var target = e.currentTarget;
+				dojo.xhrPost({
+	                url: dojo.attr(target, "href"),
+	                handleAs: "json",
+	                load: function(data) {
+	                	var u = target;
+	                	if(data.status == "success"){
+	                		dojo.query("img", target.parentNode.parentNode).forEach(function(node, index, arr){
+	                			dojo.attr(node, "src",  dojo.attr(node, "src") + "?dummy=1");
+	        				});
+	                	}
+	                },
+	                error: function(error) {
+	                	var u = "";
+	                }
+	            });
+			})
 		});
 	});
 </script>
@@ -61,7 +87,7 @@
 			<li><a href="<c:url value="/gallery"/>">Root</a></li>
 			<c:forEach var="crumb" items="${breadcrumbs}">
 				<li>&gt;</li>
-				<li><a href="<c:url value="/gallery/${crumb.id}"/>"><c:out value="${crumb.name}" /></a></li>
+				<li><a href="<c:url value="/gallery/album/${crumb.id}"/>"><c:out value="${crumb.name}" /></a></li>
 			</c:forEach>
 		</ul>
 		<br />
@@ -71,10 +97,15 @@
 			</c:forEach>
 			<c:forEach var="i" items="${childItems}">
 				<li>
-					<div class="image">
-						<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
-						<span class="tools"><a href="<c:url value="/gallery/item/${i.id}/rotate/left"/>">Left</a><a href="<c:url value="/gallery/item/${i.id}/rotate/right"/>">Right</a></span>
-					</div>
+					<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
+					<span class="tools">
+						<a href="<c:url value="/gallery/item/${i.id}/rotate/left"/>">
+							<img src="<c:url value="/img/rotate_left_small.png"/>" alt="Rotate Left"/>
+						</a>
+						<a href="<c:url value="/gallery/item/${i.id}/rotate/right"/>">
+							<img src="<c:url value="/img/rotate_right_small.png"/>" alt="Rotate Right"/>
+						</a>
+					</span>
 				</li>
 			</c:forEach>
 			<li>

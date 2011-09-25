@@ -16,7 +16,7 @@ public interface ItemMapper {
 	public List<Item> getNonAlbum();
 	
 	@Select("select * from items where \"albumId\" = #{albumId}")
-	public List<Item> getByAlbum(@Param("album") BigDecimal albumId);
+	public List<Item> getByAlbum(@Param("albumId") BigDecimal albumId);
 	
 	@Select("select * from items where id = #{id}")
 	public Item getById(@Param("id") BigDecimal id);

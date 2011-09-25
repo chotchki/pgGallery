@@ -143,7 +143,7 @@ public class GalleryController {
 		}
 	}
 	
-	@RequestMapping(value = "/item/{itemId}/rotate/left")
+	@RequestMapping(value = "/item/{itemId}/rotate/left", method = RequestMethod.POST)
 	public @ResponseBody AjaxResponse rotateLeft(Model mod, @PathVariable("itemId") BigDecimal itemId) {
 		AjaxResponse a = new AjaxResponse();
 		try {
@@ -155,7 +155,7 @@ public class GalleryController {
 		return a;
 	}
 	
-	@RequestMapping(value = "/item/{itemId}/rotate/right")
+	@RequestMapping(value = "/item/{itemId}/rotate/right", method = RequestMethod.POST)
 	public @ResponseBody AjaxResponse rotateRight(Model mod, @PathVariable("itemId") BigDecimal itemId) {
 		AjaxResponse a = new AjaxResponse();
 		try {
