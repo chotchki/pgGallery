@@ -33,6 +33,7 @@ public class ItemContentService {
 	
 	@Transactional
 	public void create(ItemContent content) {
+		content.setContentHash(md.digest(content.getContent())); //ensure the hash is updated
 		itemContentMapper.create(content);
 	}
 	
@@ -56,7 +57,6 @@ public class ItemContentService {
 		ItemContent icontent = new ItemContent();
 		icontent.setItemId(item.getId());
 		icontent.setContent(content);
-		icontent.setContentHash(md.digest(content));
 		create(icontent);
 		
 		thumbnailService.upload(icontent);
