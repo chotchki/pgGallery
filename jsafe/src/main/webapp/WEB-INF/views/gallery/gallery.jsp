@@ -89,6 +89,30 @@
 				<li>&gt;</li>
 				<li><a href="<c:url value="/gallery/album/${crumb.id}"/>"><c:out value="${crumb.name}" /></a></li>
 			</c:forEach>
+			<li>
+				<div dojoType="dijit.form.DropDownButton">
+					<span>New Album</span>
+					<div dojoType="dijit.TooltipDialog">
+						<div dojoType="dijit.form.Form" action="<c:url value="/gallery/album/create"/>" method="POST">
+							<label for="name"> Name:</label><input dojoType="dijit.form.TextBox" id="name" name="name">
+							<input id="isPublic" name="isPublic" dojoType="dijit.form.CheckBox" value="true" /><label for="isPublic">Public?</label>
+							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
+							<button dojoType="dijit.form.Button" type="submit">Create</button>
+						</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div dojoType="dijit.form.DropDownButton">
+					<span>Upload Items</span>
+					<div dojoType="dijit.TooltipDialog">
+						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
+							<input name="item" multiple="true" type="file" dojoType="dojox.form.Uploader" label="Select Some Files" id="uploader" />
+							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
+							<input dojoType="dijit.form.Button" type="submit" label="Upload" />
+						</div>
+				</div>
+			</li>
 		</ul>
 		<br />
 		<ul class="items">
@@ -108,28 +132,6 @@
 					</span>
 				</li>
 			</c:forEach>
-			<li>
-				<div dojoType="dijit.form.DropDownButton">
-					<span>New Album</span>
-					<div dojoType="dijit.TooltipDialog">
-						<div dojoType="dijit.form.Form" action="<c:url value="/gallery/album/create"/>" method="POST">
-							<label for="name"> Name:</label><input dojoType="dijit.form.TextBox" id="name" name="name">
-							<input id="isPublic" name="isPublic" dojoType="dijit.form.CheckBox" value="true" /><label for="isPublic">Public?</label>
-							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
-							<button dojoType="dijit.form.Button" type="submit">Create</button>
-						</div>
-					</div>
-				</div><br />
-				<div dojoType="dijit.form.DropDownButton">
-					<span>Upload Items</span>
-					<div dojoType="dijit.TooltipDialog">
-						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
-							<input name="item" multiple="true" type="file" dojoType="dojox.form.Uploader" label="Select Some Files" id="uploader" />
-							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
-							<input dojoType="dijit.form.Button" type="submit" label="Upload" />
-						</div>
-				</div>
-			</li>
 		</ul>
 	</div>
 </body>
