@@ -62,7 +62,7 @@
 	                load: function(data) {
 	                	var u = target;
 	                	if(data.status == "success"){
-	                		dojo.query("img", target.parentNode.parentNode).forEach(function(node, index, arr){
+	                		dojo.query("> img", target.parentNode.parentNode).forEach(function(node, index, arr){
 	                			dojo.attr(node, "src",  dojo.attr(node, "src") + "?dummy=1");
 	        				});
 	                	}
