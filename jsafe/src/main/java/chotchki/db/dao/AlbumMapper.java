@@ -36,6 +36,6 @@ public interface AlbumMapper {
 	@Insert("insert into albums(name, \"parentId\", \"isPublic\") values (#{name}, #{parentId}, #{isPublic})")
 	public void create(Album album);
 	
-	@Update("update albums set name = #{name}, \"parentId\" = #{parentId}, \"isPublic\" = #{isPublic} where id = #{id}")
+	@Update("update albums set name = #{name}, \"parentId\" = #{parentId}, \"isPublic\" = #{isPublic}, \"defaultId\" = #{defaultId} where id = #{id}")
 	public void update(Album album);
 }

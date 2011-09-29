@@ -18,6 +18,11 @@ public class Album {
 	
 	@NotNull
 	private boolean isPublic = false;
+	
+	/**
+	 * The itemId of the item that should be used as the thumbnail.
+	 */
+	private BigDecimal defaultId = null;
 
 	public BigDecimal getId() {
 		return id;
@@ -49,5 +54,13 @@ public class Album {
 
 	public void setPublic(boolean isPublic) {
 		this.isPublic = isPublic;
+	}
+
+	public BigDecimal getDefaultId() {
+		return defaultId;
+	}
+
+	public void setDefaultId(BigDecimal defaultId) {
+		this.defaultId = defaultId;
 	}
 }

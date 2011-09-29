@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -82,6 +83,31 @@ public class GalleryController {
 		mod.addAttribute("childItems", itemService.getByAlbum(album));
 		return "gallery/gallery";
 	}
+	
+	@RequestMapping(value = "/album/{albumId}/thumb", method = RequestMethod.GET)
+	public void viewAlbumThumbnail(Model mod, @PathVariable("albumId") BigDecimal albumId, HttpServletResponse res, OutputStream output){
+		try{
+			Album album = albumService.getById(albumId);
+			if(album.getDefaultId() != null) {
+				viewThumbnail(album.getDefaultId(), res, output);
+				return;
+			}
+			
+			List<Item> items = itemService.getByAlbum(albumId);
+			Random r = new Random();
+			int rItem = r.nextInt(items.size() - 1);
+			
+			viewThumbnail(items.get(rItem).getId(), res, output);
+		} catch (Exception e){
+			log.error("Had an error getting the thumbnail", e);
+			try {
+				res.sendError(500);
+			} catch (IOException e1) {
+				log.error("Could not respond with a 500 error", e1);
+			}
+			return;
+		}
+	}
 
 	@RequestMapping(value = "/album/create", method = RequestMethod.POST)
 	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result) {
@@ -124,7 +150,7 @@ public class GalleryController {
 	}
 	
 	@RequestMapping(value = "/item/{itemId}/thumb")
-	public void viewThumbnail(Model mod, @PathVariable("itemId") BigDecimal itemId, HttpServletResponse res, OutputStream output){
+	public void viewThumbnail(@PathVariable("itemId") BigDecimal itemId, HttpServletResponse res, OutputStream output){
 		try{
 			Item item = this.itemService.getById(itemId);
 			res.setContentType(item.getMimeType());

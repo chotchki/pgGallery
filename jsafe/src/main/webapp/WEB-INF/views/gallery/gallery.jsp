@@ -16,6 +16,10 @@
 			margin-left: auto;
 			margin-right: auto;
 	}
+	.items li > a:nth-child(3) {
+		display: block;
+		text-align: center;
+	}
 	.tools {
 		position: relative;
 		bottom: 15px;
@@ -117,7 +121,14 @@
 		<br />
 		<ul class="items">
 			<c:forEach var="a" items="${childAlbums}">
-				<li><a href="<c:url value="/gallery/album/${a.id}"/>"><c:out value="${a.name}" /></a></li>
+				<li>
+					<a href="<c:url value="/gallery/album/${a.id}"/>">
+						<img src="<c:url value="/gallery/album/${a.id}/thumb"/>" />
+					</a><br />
+					<a href="<c:url value="/gallery/album/${a.id}"/>">
+						<c:out value="${a.name}" />
+					</a>
+				</li>
 			</c:forEach>
 			<c:forEach var="i" items="${childItems}">
 				<li>
