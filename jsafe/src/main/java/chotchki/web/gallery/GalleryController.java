@@ -63,10 +63,10 @@ public class GalleryController {
 		return "gallery/gallery";
 	}
 
-	@RequestMapping(value = "/album/{album}", method = RequestMethod.GET)
-	public String viewAlbum(Model mod, @PathVariable("album") BigDecimal album) {
+	@RequestMapping(value = "/album/{albumId}", method = RequestMethod.GET)
+	public String viewAlbum(Model mod, @PathVariable("albumId") BigDecimal albumId) {
 		try {
-			Album valid = albumService.getById(album);
+			Album valid = albumService.getById(albumId);
 			if (valid == null) {
 				throw new Exception("Album does not exist.");
 			}
@@ -78,10 +78,31 @@ public class GalleryController {
 		}
 		
 		mod.addAttribute("settings", siteSettingsService.get());
-		mod.addAttribute("breadcrumbs", albumService.getBreadcrumbById(album));
-		mod.addAttribute("childAlbums", albumService.getByParent(album));
-		mod.addAttribute("childItems", itemService.getByAlbum(album));
+		mod.addAttribute("breadcrumbs", albumService.getBreadcrumbById(albumId));
+		mod.addAttribute("childAlbums", albumService.getByParent(albumId));
+		mod.addAttribute("childItems", itemService.getByAlbum(albumId));
 		return "gallery/gallery";
+	}
+	
+	@RequestMapping(value = "/album/{albumId}", method = RequestMethod.POST)
+	public @ResponseBody AjaxResponse editAlbum(Model mod, @PathVariable("albumId") BigDecimal albumId,
+			@Valid Album sub_album, BindingResult res_album) {
+		AjaxResponse a = new AjaxResponse();
+		
+		if(res_album.hasErrors()) {
+			a.error(res_album.getFieldError().getDefaultMessage());
+			return a;
+		}
+		
+		try {
+			Album db_album = albumService.getById(albumId);
+			db_album.apply(sub_album);
+			albumService.update(db_album);
+		} catch(Exception e) {
+			log.error("Had an error updating the album.", e);
+			a.error(e.getLocalizedMessage());
+		}
+		return a;
 	}
 	
 	@RequestMapping(value = "/album/{albumId}/thumb", method = RequestMethod.GET)
