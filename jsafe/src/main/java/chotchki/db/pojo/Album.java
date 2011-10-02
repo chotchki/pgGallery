@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-public class Album {
+public class Album extends UpdatablePojo{
 	private BigDecimal id = null;
 
 	@NotBlank(message = "Album name cannot be blank")
