@@ -152,19 +152,29 @@ body > .footer-push-container { height: auto; min-height: 100%; }
 body div#message {
 	background-color: #FFFFFF;
 	border: 1px solid #DBE0C8;
-	opacity: 0;
+	/*opacity: 0;*/
 	margin-left: auto;
 	margin-right: auto;
 	padding: 10px;
 	width: 500px;
 }
 
+body div#message p {
+	display: inline;
+}
 body div#message p.error {
 	color: #FF0000;
+	font-weight: bold;
 }
 
 body div#message p.success {
 	color: #041E11;
+	font-weight: bold;
+}
+
+body div#message a {
+	color: #DB5216;
+	float: right;
 }
 
 .content-container {
@@ -257,6 +267,10 @@ body div#message p.success {
 .side-bar-box ul li {
 	list-style-type: square;
     margin-left: 20px;
+}
+
+.side-bar-box a {
+	color: #444444;
 }
 
 .footer-push {

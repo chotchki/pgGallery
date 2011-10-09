@@ -93,7 +93,6 @@ public class GalleryController {
 			a.error(res_album.getFieldError().getDefaultMessage());
 			return a;
 		}
-		
 		try {
 			Album db_album = albumService.getById(albumId);
 			db_album.apply(sub_album);

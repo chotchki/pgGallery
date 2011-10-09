@@ -8,13 +8,39 @@
 		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
 		<link rel="stylesheet" href="<c:url value="/js/dojo-release-1.7.0b2/dijit/themes/tundra/tundra.css"/>" />
 		<script type="text/javascript">
-					
+			dojo.require("dojo.fx");
+			//This function adds a sucess / error message to the message bar
+			dojo.ready(function(){
+				function add_message(new_content, css_class){
+					dojo.empty("message");
+					var n = dojo.create("p", {class: css_class, innerHTML: new_content }, "message");
+					var c = dojo.create("a", {href: "#", innerHTML: "close"}, "message");
+		            var wipeArgs = {
+		                node: "message"
+		            };
+		            dojo.connect(dojo.byId("message"), "onclick", null, function(){
+		            	var args = wipeArgs;
+		            	dojo.fx.wipeOut(args).play();
+		            });
+		            dojo.fx.wipeIn(wipeArgs).play();
+				}
+				function add_error_message(content){
+					add_message(content, "error");	
+				}
+				function add_success_message(content){
+					add_message(content, "error");	
+				}
+			});
 		</script>
 		
 		<sitemesh:write property="head" />
 	</head>
 	<body class="tundra">
 		<div class="footer-push-container">
+			<div id="message" style="display: none;">
+				<p class="error"><c:out value="${error}"/></p>
+				<p class="success"><c:out value="${success}"/></p>
+			</div>
 			<div class="top-links">
 				<ul>
 					<sec:authorize access="isAuthenticated()">
@@ -32,17 +58,6 @@
 					<h1><a href="<c:url value="/"/> " >Chotchki.us</a></h1>
 				</div>
 			</div>
-			<div id="message">
-				<p class="error"><c:out value="${error}"/></p>
-				<p class="success"><c:out value="${success}"/></p>
-			</div>
-			<c:if test="${(not empty error) or (not empty success)}">
-			<script type="text/javascript">
-				dojo.ready(function(){
-					dojo.fadeIn({node: "message", duration: 700}).play();
-				});
-			</script>
-			</c:if>
 			<div class="content-container">
 				<div class="content-bar">
 					<sitemesh:write property="body" />
