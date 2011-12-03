@@ -1,3 +1,30 @@
+#########################################################
+#                     pgGallery                         #
+#########################################################
+
+A web based photo gallery powered by Postgres and Spring.
+
+#INSTALLATION
+
+1. Setup an installation of PostgreSQL 9.1
+1a. For linux "apt-get install postgresql-9.1"
+1b. For windows goto postgresql.org, download and run their installer.
+
+2. Create a database superuser, for example "pgGallery-admin"
+2a. Run "createuser -d -P -s -h YOUR_DB_HOST pgGallery-admin"
+2b. Set the password to something strong and random, this will be an admin db account.
+
+3. Create the actual database.
+3a. Run "createdb -h YOUR_DB_HOST -U pgGallery-admin -O pgGallery-admin pgGallery "The pgGallery database."
+
+4. Check out the code from GitHub
+4a. Create a directory to hold the web code, for example "c:\temp\pgGallery" or ~/pgGallery
+4a. git clone git://github.com/chotchki/pgGallery.git into that directory
+
+5. Edit the Jetty config in the src/main/webapp/WEB-INF/jetty-env.xml file.
+#TODO Flush this out
+
+#DEVELOPMENT NOTES - will move to another file sometime
 Rights
 	ANON				- Can view public albums 
 	GALLERY_READONLY 	- Can view private albums
