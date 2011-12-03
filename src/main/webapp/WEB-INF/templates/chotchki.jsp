@@ -4,9 +4,9 @@
 <html>
 	<head>
 		<title>Chotchki.us: <sitemesh:write property="title" /></title>
-		<script src="<c:url value="/js/dojo-release-1.7.0b2/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
+		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
 		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
-		<link rel="stylesheet" href="<c:url value="/js/dojo-release-1.7.0b2/dijit/themes/tundra/tundra.css"/>" />
+		<link rel="stylesheet" href="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/tundra/tundra.css"/>" />
 		<script type="text/javascript">
 			dojo.require("dojo.fx");
 			//This function adds a sucess / error message to the message bar

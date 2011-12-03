@@ -1,7 +1,0 @@
-require.built();
-define(({
-name: "שם",
-path: "נתיב",
-size: "גודל (בבתים)"
-})
-);
