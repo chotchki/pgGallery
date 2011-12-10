@@ -28,7 +28,7 @@
 				<configuration>
 					<scanIntervalSeconds>10</scanIntervalSeconds>
 					<webAppConfig>
-						<contextPath>/jsafe</contextPath>
+						<contextPath>/</contextPath>
 					</webAppConfig>
 				</configuration>
 				<dependencies>
