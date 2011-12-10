@@ -13,7 +13,7 @@
 	
 	<context:component-scan base-package="chotchki.db" />
 	
-	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/db"/>
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/main"/>
 	
 	<!-- enable the configuration of transactional behavior based on annotations -->
 	<tx:annotation-driven transaction-manager="txManager"/>

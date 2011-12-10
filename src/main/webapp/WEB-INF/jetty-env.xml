@@ -1,14 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
-	<New id="DSTest" class="org.eclipse.jetty.plus.jndi.Resource">
+	<New id="DSInstaller" class="org.eclipse.jetty.plus.jndi.Resource">
 		<Arg></Arg>
-		<Arg>jdbc/db</Arg>
+		<Arg>jdbc/installer</Arg>
 		<Arg>
 			<New class="org.postgresql.ds.PGPoolingDataSource">
-				<Set name="User">website</Set>
-				<Set name="Password">fc64d85195f64920f6b20f60ad60520d04df3ce3d705728f74fb983147846013</Set>
-				<Set name="DatabaseName">website</Set>
+				<Set name="User">pgGallery-admin</Set>
+				<Set name="Password">INSTALLER_PASSWORD</Set>
+				<Set name="DatabaseName">pgGallery</Set>
+				<Set name="ServerName">localhost</Set>
+				<Set name="PortNumber">5432</Set>
+			</New>
+		</Arg>
+	</New>
+	<New id="DSMain" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg></Arg>
+		<Arg>jdbc/main</Arg>
+		<Arg>
+			<New class="org.postgresql.ds.PGPoolingDataSource">
+				<Set name="User">pgGallery-user</Set>
+				<Set name="Password">USER_PASSWORD</Set>
+				<Set name="DatabaseName">pgGallery</Set>
 				<Set name="ServerName">localhost</Set>
 				<Set name="PortNumber">5432</Set>
 			</New>

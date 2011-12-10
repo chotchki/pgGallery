@@ -30,6 +30,17 @@
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	
+	<!-- Installer Page Filter -->
+	<filter>
+		<filter-name>installerPageFilter</filter-name>
+		<filter-class>installer.InstallerFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>installerPageFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 
 	<!-- Spring Security Protection -->
 	<filter>
