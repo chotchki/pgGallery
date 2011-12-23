@@ -73,7 +73,7 @@ public class ScanningLoader {
             throws ClassNotFoundException, IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
-        Enumeration<URL> resources = classLoader.getResources(PACKAGE);
+        Enumeration<URL> resources = classLoader.getResources(PACKAGE.replaceAll("\\.", "/"));
         List<File> dirs = new ArrayList<File>();
         while (resources.hasMoreElements()) {
             URL resource = resources.nextElement();
@@ -106,7 +106,7 @@ public class ScanningLoader {
                 classes.addAll(findClasses(file, packageName + "." + file.getName()));
             } else if (file.getName().endsWith(".class")) {
             	Class<?> cls = Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6));
-            	if(cls.isAssignableFrom(Part.class)) {
+            	if(Part.class.isAssignableFrom(cls)) {
             		log.debug("Loaded class {}", cls.getName());
             		classes.add((Class<? extends Part>) cls);
             	} else {

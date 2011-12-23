@@ -33,9 +33,9 @@ public abstract class Part implements Comparable<Part> {
 	
 	public void install() throws Exception {
 		//Get the current class with its full name
-		String loaderLocation = this.getClass().getCanonicalName() + ".sql";
+		String loaderLocation = this.getClass().getName();
 		loaderLocation = loaderLocation.replaceAll("\\.", "/");
-		
+		loaderLocation = "/" + loaderLocation + ".sql";
 		
 		InputStream is = this.getClass().getResourceAsStream(loaderLocation);
 		if(is == null) {
@@ -46,7 +46,7 @@ public abstract class Part implements Comparable<Part> {
 		String script = StringUtils.join(lines, SystemUtils.LINE_SEPARATOR);
 		
 		log.info("Running install script {}", loaderLocation);
-		queryRunner.batch(script, null);
+		queryRunner.batch(script, new Object[0][0]);
 	}
 	
 	/**

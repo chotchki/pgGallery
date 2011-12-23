@@ -2,18 +2,10 @@ package installer;
 
 import installer.classpath.ScanningLoader;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
@@ -32,7 +24,7 @@ public class InstallerProcess implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent sce) {
 		DataSource ds = null;
 		try {
-		   Context adminDataSource = (Context) new InitialContext().lookup("java:comp/env");
+		   Context adminDataSource = (Context) new InitialContext();
 		   ds = (DataSource) adminDataSource.lookup(INSTALLER_JNDI);
 		   if(ds == null) {
 			   throw new Exception("Lookup failed for the installer using the path " + INSTALLER_JNDI);
@@ -52,12 +44,13 @@ public class InstallerProcess implements ServletContextListener {
 					p.install();
 				}
 			}
+			
+			log.info("Installation Complete!");
+			
+			InstallerFlag.INSTANCE.enabled.set(false);
+			log.info("Disabled the install filter");
 		} catch (Exception e) {
 			log.error("Installation process failed", e);
 		}
-		log.info("Installation Complete!");
-		
-		InstallerFilter.getInstance().disable();
-		log.info("Disabled the install filter");
 	}
 }
