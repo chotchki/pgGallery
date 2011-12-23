@@ -55,7 +55,9 @@ public class InstallerProcess implements ServletContextListener {
 		} catch (Exception e) {
 			log.error("Installation process failed", e);
 		}
-		
 		log.info("Installation Complete!");
+		
+		InstallerFilter.getInstance().disable();
+		log.info("Disabled the install filter");
 	}
 }
