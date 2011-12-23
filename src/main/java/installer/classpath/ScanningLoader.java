@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +33,7 @@ public class ScanningLoader {
      * @throws ClassNotFoundException
      * @throws IOException
      */
-    public static List<Class<? extends Part>> getInstallParts()
+    public static Set<Class<? extends Part>> getInstallParts()
             throws ClassNotFoundException, IOException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
@@ -41,7 +43,7 @@ public class ScanningLoader {
             URL resource = resources.nextElement();
             dirs.add(new File(resource.getFile()));
         }
-        List<Class<? extends Part>> classes = new ArrayList<Class<? extends Part>>();
+        Set<Class<? extends Part>> classes = new HashSet<Class<? extends Part>>();
         for (File directory : dirs) {
             classes.addAll(findClasses(directory, PACKAGE));
         }
@@ -56,8 +58,8 @@ public class ScanningLoader {
      * @return The classes
      * @throws ClassNotFoundException
      */
-    private static List<Class<? extends Part>> findClasses(File directory, String packageName) throws ClassNotFoundException {
-        List<Class<? extends Part>> classes = new ArrayList<Class<? extends Part>>();
+    private static Set<Class<? extends Part>> findClasses(File directory, String packageName) throws ClassNotFoundException {
+        Set<Class<? extends Part>> classes = new HashSet<Class<? extends Part>>();
         if (!directory.exists()) {
             return classes;
         }
