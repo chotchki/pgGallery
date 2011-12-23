@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<listener>
+		<listener-class>installer.InstallerProcess</listener-class>
+	</listener>
+	
+	<listener>
 		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>
 	</listener>
 	 

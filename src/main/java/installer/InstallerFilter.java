@@ -11,9 +11,15 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 public class InstallerFilter implements Filter {
+	private static InstallerFilter instance = null;
 	
 	private AtomicBoolean enabled = new AtomicBoolean(true);
 	
+	public static InstallerFilter getInstance() {
+		synchronized(instance) {
+			return instance;
+		}
+	}
 	public void disable() {
 		enabled.set(false);
 	}
@@ -31,6 +37,10 @@ public class InstallerFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig fc) throws ServletException {}
+	public void init(FilterConfig fc) throws ServletException {
+		synchronized(instance) {
+			instance = this;
+		}
+	}
 
 }
