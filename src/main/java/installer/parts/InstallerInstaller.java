@@ -1,13 +1,14 @@
 package installer.parts;
 
-import javax.sql.DataSource;
-
 import installer.Part;
+
+import java.sql.Connection;
+import java.util.Map;
 
 public class InstallerInstaller extends Part {
 
-	public InstallerInstaller(DataSource dataSource) {
-		super(dataSource);
+	public InstallerInstaller(Connection conn) {
+		super(conn);
 	}
 	
 	@Override
@@ -17,11 +18,11 @@ public class InstallerInstaller extends Part {
 
 	@Override
 	public boolean isInstalled() throws Exception {
-		int count = queryRunner.query("SELECT count(*) FROM pg_tables WHERE tablename='pgGalleryInstaller'", new CountHandler());
-		if(count > 1) {
-			return true;
-		} else {
+		Map<String, Object> row = this.sqlRunner.selectOne("SELECT count(*) as count FROM pg_tables WHERE tablename='pgGalleryInstaller'");
+		if(row.get("count").equals(0)) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -44,13 +45,13 @@ public class ScanningLoader {
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	public static List<Part> createParts(DataSource ds) throws ClassNotFoundException, IOException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
+	public static List<Part> createParts(Connection conn) throws ClassNotFoundException, IOException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
 		Set<Class<? extends Part>> parts = getInstallParts();
 		Set<Part> createdParts = new HashSet<Part>();
 		
 		for(Class<? extends Part> c : parts) {
-			Constructor<? extends Part> con = c.getConstructor(DataSource.class);
-			Part p = con.newInstance(ds);
+			Constructor<? extends Part> con = c.getConstructor(Connection.class);
+			Part p = con.newInstance(conn);
 			createdParts.add(p);
 		}
 		

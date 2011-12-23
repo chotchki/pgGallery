@@ -2,6 +2,8 @@ package installer;
 
 import installer.classpath.ScanningLoader;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.naming.Context;
@@ -22,19 +24,29 @@ public class InstallerProcess implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
-		DataSource ds = null;
+		Connection conn = null;
 		try {
 		   Context adminDataSource = (Context) new InitialContext();
-		   ds = (DataSource) adminDataSource.lookup(INSTALLER_JNDI);
+		   DataSource ds = (DataSource) adminDataSource.lookup(INSTALLER_JNDI);
 		   if(ds == null) {
 			   throw new Exception("Lookup failed for the installer using the path " + INSTALLER_JNDI);
 		   }
+		   conn = ds.getConnection();
+		   if(conn == null) {
+			   throw new Exception("Unable to establish a database connection");
+		   }
+		   conn.setAutoCommit(false);
 		} catch(Exception e) {
-			log.error("Failed trying to find the installer datasource.", e);
+			log.error("Failed try to connect to the database.", e);
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e1) {}
+			}
 		}
 		
 		try {
-			List<Part> installParts = ScanningLoader.createParts(ds);
+			List<Part> installParts = ScanningLoader.createParts(conn);
 
 			for(Part p: installParts) {
 				if(p.isInstalled()) {
@@ -44,13 +56,19 @@ public class InstallerProcess implements ServletContextListener {
 					p.install();
 				}
 			}
-			
+			conn.commit();
 			log.info("Installation Complete!");
 			
 			InstallerFlag.INSTANCE.enabled.set(false);
 			log.info("Disabled the install filter");
 		} catch (Exception e) {
 			log.error("Installation process failed", e);
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e1) {}
+			}
 		}
 	}
 }

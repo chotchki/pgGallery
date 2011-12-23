@@ -1,26 +1,22 @@
 package installer;
 
 import java.io.InputStream;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+import java.io.InputStreamReader;
+import java.sql.Connection;
 
-import javax.sql.DataSource;
-
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.ResultSetHandler;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.SystemUtils;
+import org.apache.ibatis.jdbc.ScriptRunner;
+import org.apache.ibatis.jdbc.SqlRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class Part implements Comparable<Part> {
 	private static Logger log = LoggerFactory.getLogger(Part.class);
-	protected final QueryRunner queryRunner;
+	protected final ScriptRunner scriptRunner;
+	protected final SqlRunner sqlRunner;
 	
-	public Part(DataSource dataSource) {
-		queryRunner = new QueryRunner(dataSource);
+	public Part(Connection conn) {
+		scriptRunner = new ScriptRunner(conn);
+		sqlRunner = new SqlRunner(conn);
 	}
 	
 	public abstract long priority();
@@ -41,30 +37,10 @@ public abstract class Part implements Comparable<Part> {
 		if(is == null) {
 			throw new Exception("Loader script " + loaderLocation + " does not exist.");
 		}
-		List<String> lines = IOUtils.readLines(is, "UTF-8");
 		
-		String script = StringUtils.join(lines, SystemUtils.LINE_SEPARATOR);
+		InputStreamReader rdr = new InputStreamReader(is);
 		
 		log.info("Running install script {}", loaderLocation);
-		queryRunner.batch(script, new Object[0][0]);
-	}
-	
-	/**
-	 * Private handler to return the count(*) as an int.
-	 * @author chotchki
-	 *
-	 */
-	protected class CountHandler implements ResultSetHandler<Integer> {
-		public CountHandler() {}
-		
-		@Override
-		public Integer handle(ResultSet rs) throws SQLException {
-			if(!rs.next()) {
-				return 0;
-			}
-			
-			return rs.getInt(1);
-		}
-		
+		scriptRunner.runScript(rdr);
 	}
 }
