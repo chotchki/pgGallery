@@ -8,6 +8,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +30,21 @@ public class ScanningLoader {
 	
 	private static final String PACKAGE = "installer.parts";
 	
-	public static Set<Part> createParts(DataSource ds) throws ClassNotFoundException, IOException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
+	/**
+	 * Creates all the install parts in the proper dependency order.
+	 * 
+	 * @param ds
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 * @throws IllegalArgumentException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	public static List<Part> createParts(DataSource ds) throws ClassNotFoundException, IOException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
 		Set<Class<? extends Part>> parts = getInstallParts();
 		Set<Part> createdParts = new HashSet<Part>();
 		
@@ -38,7 +53,12 @@ public class ScanningLoader {
 			Part p = con.newInstance(ds);
 			createdParts.add(p);
 		}
-		return createdParts;
+		
+		List<Part> installOrder = new ArrayList<Part>(createdParts.size());
+		installOrder.addAll(createdParts);
+		Collections.sort(installOrder);
+		
+		return installOrder;
 	}
 	
 	 /**

@@ -15,7 +15,7 @@ import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class Part {
+public abstract class Part implements Comparable<Part> {
 	private static Logger log = LoggerFactory.getLogger(Part.class);
 	protected final QueryRunner queryRunner;
 	
@@ -23,7 +23,11 @@ public abstract class Part {
 		queryRunner = new QueryRunner(dataSource);
 	}
 	
-	public abstract Class<? extends Part>[] getDependencies();
+	public abstract long priority();
+	
+	public int compareTo(Part o) {
+		return new Long(this.priority()).compareTo(o.priority());
+	}
 	
 	public abstract boolean isInstalled() throws Exception;
 	

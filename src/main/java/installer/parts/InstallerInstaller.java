@@ -9,10 +9,10 @@ public class InstallerInstaller extends Part {
 	public InstallerInstaller(DataSource dataSource) {
 		super(dataSource);
 	}
-
+	
 	@Override
-	public Class<? extends Part>[] getDependencies() {
-		return null;
+	public long priority() {
+		return 0;
 	}
 
 	@Override
