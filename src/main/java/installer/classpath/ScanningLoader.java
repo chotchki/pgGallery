@@ -4,12 +4,16 @@ import installer.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +28,18 @@ public class ScanningLoader {
 	private static Logger log = LoggerFactory.getLogger(ScanningLoader.class);
 	
 	private static final String PACKAGE = "installer.parts";
+	
+	public static Set<Part> createParts(DataSource ds) throws ClassNotFoundException, IOException, SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException{
+		Set<Class<? extends Part>> parts = getInstallParts();
+		Set<Part> createdParts = new HashSet<Part>();
+		
+		for(Class<? extends Part> c : parts) {
+			Constructor<? extends Part> con = c.getConstructor(DataSource.class);
+			Part p = con.newInstance(ds);
+			createdParts.add(p);
+		}
+		return createdParts;
+	}
 	
 	 /**
      * Scans all classes accessible from the context class loader which belong to the given package and subpackages.
