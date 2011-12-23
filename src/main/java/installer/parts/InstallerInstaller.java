@@ -19,7 +19,8 @@ public class InstallerInstaller extends Part {
 	@Override
 	public boolean isInstalled() throws Exception {
 		Map<String, Object> row = this.sqlRunner.selectOne("SELECT count(*) as count FROM pg_tables WHERE tablename='pgGalleryInstaller'");
-		if(row.get("count").equals(0)) {
+		long count = (Long) row.get("COUNT");
+		if(count == 0) {
 			return false;
 		} else {
 			return true;
