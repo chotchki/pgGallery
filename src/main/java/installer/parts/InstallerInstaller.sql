@@ -1,7 +1,7 @@
 CREATE TABLE "pgGalleryInstaller"
 (
    "partName" character varying NOT NULL, 
-   installed boolean, 
+   installed boolean NOT NULL DEFAULT false, 
    "statusDate" timestamp with time zone NOT NULL DEFAULT now(), 
    CONSTRAINT "pgGalleryInstaller_pk" PRIMARY KEY ("partName")
 );
