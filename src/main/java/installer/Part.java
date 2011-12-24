@@ -18,6 +18,7 @@ public abstract class Part implements Comparable<Part> {
 	
 	public Part(Connection conn) {
 		scriptRunner = new ScriptRunner(conn);
+		scriptRunner.setSendFullScript(true);
 		scriptRunner.setLogWriter(new Slf4jPrintWriter(false));
 		scriptRunner.setErrorLogWriter(new Slf4jPrintWriter(true));
 		
