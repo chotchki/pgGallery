@@ -5,6 +5,7 @@ import installer.util.Slf4jPrintWriter;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
+import java.util.Map;
 
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.apache.ibatis.jdbc.SqlRunner;
@@ -31,7 +32,15 @@ public abstract class Part implements Comparable<Part> {
 		return new Long(this.priority()).compareTo(o.priority());
 	}
 	
-	public abstract boolean isInstalled() throws Exception;
+	public boolean isInstalled() throws Exception {
+		Map<String, Object> row = this.sqlRunner.selectOne("SELECT count(*) as count FROM \"pgGalleryInstaller\" WHERE \"partName\"='" + this.getClass().getSimpleName() + "' and installed = true");
+		long count = (Long) row.get("COUNT");
+		if(count == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	public void install() throws Exception {
 		//Get the current class with its full name
