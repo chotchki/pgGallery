@@ -1,5 +1,7 @@
 package installer;
 
+import installer.util.Slf4jPrintWriter;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
@@ -16,6 +18,9 @@ public abstract class Part implements Comparable<Part> {
 	
 	public Part(Connection conn) {
 		scriptRunner = new ScriptRunner(conn);
+		scriptRunner.setLogWriter(new Slf4jPrintWriter(false));
+		scriptRunner.setErrorLogWriter(new Slf4jPrintWriter(true));
+		
 		sqlRunner = new SqlRunner(conn);
 	}
 	
