@@ -3,33 +3,36 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Chotchki.us: <sitemesh:write property="title" /></title>
-		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"/>" type="text/javascript" djConfig="parseOnLoad:true"></script>
-		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
+		<title>pgGallery: <sitemesh:write property="title" /></title>
+		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"/>" type="text/javascript" data-dojo-config="async:true,parseOnLoad:true"></script>
 		<link rel="stylesheet" href="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/tundra/tundra.css"/>" />
+		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
 		<script type="text/javascript">
-			dojo.require("dojo.fx");
-			//This function adds a sucess / error message to the message bar
-			dojo.ready(function(){
-				function add_message(new_content, css_class){
-					dojo.empty("message");
-					var n = dojo.create("p", {class: css_class, innerHTML: new_content }, "message");
-					var c = dojo.create("a", {href: "#", innerHTML: "close"}, "message");
-		            var wipeArgs = {
-		                node: "message"
-		            };
-		            dojo.connect(dojo.byId("message"), "onclick", null, function(){
-		            	var args = wipeArgs;
-		            	dojo.fx.wipeOut(args).play();
-		            });
-		            dojo.fx.wipeIn(wipeArgs).play();
-				}
-				function add_error_message(content){
-					add_message(content, "error");	
-				}
-				function add_success_message(content){
-					add_message(content, "error");	
-				}
+			require([
+			    "dojo/dom",
+			    "dojo/fx"], function(empty,create,connect,fx,dom,ready){
+				//This function adds a sucess / error message to the message bar
+				dojo.ready(function(){
+					function add_message(new_content, css_class){
+						empty("message");
+						var n = create("p", {class: css_class, innerHTML: new_content }, "message");
+						var c = create("a", {href: "#", innerHTML: "close"}, "message");
+		    	        var wipeArgs = {
+		    	            node: "message"
+		    	        };
+		    	        connect(dom.byId("message"), "onclick", null, function(){
+		    	        	var args = wipeArgs;
+		    	        	fx.wipeOut(args).play();
+		    	        });
+		    	        fx.wipeIn(wipeArgs).play();
+					}
+					function add_error_message(content){
+						add_message(content, "error");	
+					}
+					function add_success_message(content){
+						add_message(content, "error");	
+					}
+				});
 			});
 		</script>
 		
@@ -55,7 +58,7 @@
 			</div>
 			<div class="header">
 				<div class="title">
-					<h1><a href="<c:url value="/"/> " >Chotchki.us</a></h1>
+					<h1><a href="<c:url value="/"/> " >pgGallery</a></h1>
 				</div>
 			</div>
 			<div class="content-container">
@@ -76,7 +79,7 @@
 		</div>
 		<div class="footer-push">
 			<div class="footer">
-				Copyright &copy; <a href="http://www.chotchki.us" >Christopher Hotchkiss</a> - Colors and Design based on the <a href="http://pressplaying.com">PressPlay Theme</a>. 
+				This is an installation of <a href="https://github.com/chotchki/pgGallery">pgGallery</a> - Created and Copyright &copy; <a href="http://www.chotchki.us" >Christopher Hotchkiss</a><br /> Colors and Design based on the <a href="http://pressplaying.com">PressPlay Theme</a>.  
 			</div>
 		</div>
 	</body>
