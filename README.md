@@ -25,6 +25,7 @@ Installation
     1. Edit all the host, user and password fields to match what you created above.
     
 6. Ensure you have GraphicsMagick installed. The installer will not complete without it.
+	1. The binary must be on your PATH. To check open a command prompt and run "gm". If it runs successfully you are good.
 
 7. Ensure you have Maven installed.
 
