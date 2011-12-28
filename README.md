@@ -3,7 +3,7 @@ pgGallery
 
 A web based photo gallery powered by Postgres and Spring.
 
-Installation
+Installation 
 ------------
 
 1. Setup an installation of PostgreSQL 9.1
@@ -22,7 +22,15 @@ Installation
     2. git clone git://github.com/chotchki/pgGallery.git into that directory
 
 5. Edit the Jetty config in the src/main/webapp/WEB-INF/jetty-env.xml file.
-#TODO Flush this out
+    1. Edit all the host, user and password fields to match what you created above.
+    
+6. Ensure you have GraphicsMagick installed. The installer will not complete without it.
+
+7. Ensure you have Maven installed.
+
+8. Start the site.
+    1. cd /CHECKOUT/DIR
+    2. mvn jetty:run
 
 DEVELOPMENT NOTES - will move to another file sometime
 ------------------------------------------------------
