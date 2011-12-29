@@ -17,10 +17,6 @@ public class ImageService {
 	
 	private static ConvertCmd cmd = new ConvertCmd(true);
 	
-	static {
-		cmd.setSearchPath("C:\\Program Files (x86)\\GraphicsMagick-1.3.12-Q8");
-	}
-	
 	public byte[] rotateLeft(byte[] input) throws IOException, InterruptedException, IM4JavaException {
 		return rotate(input, -90);
 	}
