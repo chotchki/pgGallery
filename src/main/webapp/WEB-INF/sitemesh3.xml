@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
-	<mapping path="/*" decorator="/WEB-INF/templates/chotchki.jsp" />
+	<mapping path="/*" decorator="/WEB-INF/templates/pgGallery.jsp" />
 </sitemesh>
