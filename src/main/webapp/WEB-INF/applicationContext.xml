@@ -11,7 +11,7 @@
 		http://www.springframework.org/schema/jee 		http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
 		http://www.springframework.org/schema/tx		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
-	<context:component-scan base-package="chotchki.db" />
+	<context:component-scan base-package="pgGallery.db" />
 	
 	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/main"/>
 	
@@ -28,7 +28,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="chotchki.db.dao" />
+		<property name="basePackage" value="pgGallery.db.dao" />
 	</bean>
 	
 	<!-- Setup Spring Security -->
@@ -70,5 +70,5 @@
   		</property>
 	</bean>
 	
-	<bean id="passwordEncoder" class="chotchki.security.SHA512PasswordEncoder" />
+	<bean id="passwordEncoder" class="pgGallery.security.SHA512PasswordEncoder" />
 </beans>

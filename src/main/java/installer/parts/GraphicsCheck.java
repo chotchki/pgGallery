@@ -5,7 +5,8 @@ import java.sql.Connection;
 
 import org.apache.commons.io.FileUtils;
 
-import chotchki.db.service.ImageService;
+import pgGallery.db.service.ImageService;
+
 
 import installer.Part;
 

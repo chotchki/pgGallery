@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Methods for loading classes from the classpath. Technique used from:
  * http://snippets.dzone.com/posts/show/4831
- * @author chotchki
+ * @author pgGallery
  *
  */
 public class ScanningLoader {

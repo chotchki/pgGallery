@@ -6,7 +6,7 @@
   <short-name>link</short-name>
   <tag>
      <name>ink</name>
-     <tag-class>chotchki.taglib.LinkTag</tag-class>
+     <tag-class>pgGallery.taglib.LinkTag</tag-class>
      <body-content>JSP</body-content>
   </tag>
 </taglib>

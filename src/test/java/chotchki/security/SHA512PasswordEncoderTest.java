@@ -13,6 +13,8 @@ import org.joda.time.Duration;
 import org.joda.time.Interval;
 import org.junit.Test;
 
+import pgGallery.security.SHA512PasswordEncoder;
+
 public class SHA512PasswordEncoderTest {
 	private SHA512PasswordEncoder encoder = new SHA512PasswordEncoder();
 
