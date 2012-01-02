@@ -3,6 +3,10 @@ pgGallery
 
 A web based photo gallery powered by Postgres and Spring.
 
+Roadmap
+-------
+See [http://www.chotchki.us/pggallery](http://www.chotchki.us/pggallery) and the milestone list [here](https://github.com/chotchki/pgGallery/issues/milestones)
+
 Installation 
 ------------
 
@@ -32,6 +36,7 @@ Installation
 8. Start the site.
     1. cd /CHECKOUT/DIR
     2. mvn jetty:run
+    
 
 DEVELOPMENT NOTES - will move to another file sometime
 ------------------------------------------------------
