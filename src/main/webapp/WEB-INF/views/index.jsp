@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>JSafe Password Manager</title>
+<title>Photo Gallery</title>
 
 </head>
 <body>
