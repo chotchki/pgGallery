@@ -10,6 +10,7 @@
 		<script type="text/javascript">
 			require([
 			    "dojo/dom",
+			    "dojo/parser",
 			    "dojo/fx"], function(empty,create,connect,fx,dom,ready){
 				//This function adds a sucess / error message to the message bar
 				dojo.ready(function(){

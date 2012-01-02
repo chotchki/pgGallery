@@ -3,22 +3,23 @@
 	<head>
 		<title>Registration Page</title>
 		<script type="text/javascript">
-        	dojo.require("dijit.form.Form");
-        	dojo.require("dijit.form.Button");
-        	dojo.require("dijit.form.ValidationTextBox");
+		require(["dijit/form/Form",
+		         "dijit/form/Button",
+		         "dijit/form/ValidationTextBox"
+		         ]);
 		</script>
 	</head>
 	<body>
 		<div class="content">
 			<h2>New User Registration</h2>
-			<div dojoType="dijit.form.Form" id="registerForm" jsId="registerForm" action="<c:url value="/register"/> " method="POST">
+			<form data-dojo-type="dijit.form.Form" id="registerForm" data-action="<c:url value="/register"/> " method="POST">
 	            <table>
 	                <tr>
 	                    <td>
 	                        <label for="username">Username:</label>
 	                    </td>
 	                    <td>
-	                        <input type="text" id="username" name="user.username" required="true" dojoType="dijit.form.ValidationTextBox"/>
+	                        <input type="text" id="username" name="user.username" required="required" data-dojo-type="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -26,7 +27,7 @@
 	                        <label for="password">Password:</label>
 	                    </td>
 	                    <td>
-	                         <input type="password" id="password" name="user.password" required="true" dojoType="dijit.form.ValidationTextBox"/>
+	                         <input type="password" id="password" name="user.password" required="required" data-dojo-type="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	                <tr>
@@ -34,14 +35,14 @@
 	                        <label for="retypePassword">Retype Password:</label>
 	                    </td>
 	                    <td>
-	                         <input type="password" id="retypePassword" name="retypePassword" required="true" dojoType="dijit.form.ValidationTextBox"/>
+	                         <input type="password" id="retypePassword" name="retypePassword" required="required" data-dojo-type="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	                <tr>
-	                	<td><button dojoType="dijit.form.Button" type="submit">Register</button></td>
+	                	<td><button data-dojo-type="dijit.form.Button" type="submit">Register</button></td>
 	                </tr>
 	            </table>
-        	</div>     
+        	</form>     
 		</div>
 	</body>
 </html>
