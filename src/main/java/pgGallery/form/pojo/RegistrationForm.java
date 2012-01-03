@@ -13,8 +13,8 @@ public class RegistrationForm {
 	@Valid
 	private User user = null;
 	
-	@NotBlank(message="Retype Password cannot be blank")
-	@Length(min=6, max=100, message="Retype Password must be between 6 and 100 characters")
+	@NotBlank(message="The retyped password cannot be blank")
+	@Length(min=6, max=100, message="The retyped password must be between 6 and 100 characters")
 	private String retypePassword = null;
 	
 	public String getRetypePassword() {

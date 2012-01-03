@@ -58,7 +58,7 @@ public class RegisterController {
 			return "register";
 		}
 		
-		rattr.addFlashAttribute("success", "Congrats on signing up!");
+		rattr.addFlashAttribute("success", "Congrats on signing up " + form.getUser().getUsername() + "!");
 		return "redirect:/";
 	}
 
