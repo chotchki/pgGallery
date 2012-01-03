@@ -13,7 +13,7 @@
 	<body>
 		<div class="content">
 			<h2>Login</h2>
-			<form data-dojo-type="dijit.form.Form" id="loginForm" data-action="<c:url value="/j_spring_security_check" /> " data-method="POST">
+			<form data-dojo-type="dijit.form.Form" id="loginForm" action="<c:url value="/j_spring_security_check" /> " method="POST">
 	            <table>
 	                <tr>
 	                    <td>
