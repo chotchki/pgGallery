@@ -4,38 +4,26 @@
 <html>
 	<head>
 		<title>pgGallery: <sitemesh:write property="title" /></title>
-		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"/>" type="text/javascript" data-dojo-config="async:true,parseOnLoad:true"></script>
-		<link rel="stylesheet" href="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/tundra/tundra.css"/>" />
-		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
 		<script type="text/javascript">
-			require([
-			    "dojo/dom",
-			    "dojo/parser",
-			    "dojo/fx"], function(empty,create,connect,fx,dom,ready){
-				//This function adds a sucess / error message to the message bar
-				dojo.ready(function(){
-					function add_message(new_content, css_class){
-						empty("message");
-						var n = create("p", {class: css_class, innerHTML: new_content }, "message");
-						var c = create("a", {href: "#", innerHTML: "close"}, "message");
-		    	        var wipeArgs = {
-		    	            node: "message"
-		    	        };
-		    	        connect(dom.byId("message"), "onclick", null, function(){
-		    	        	var args = wipeArgs;
-		    	        	fx.wipeOut(args).play();
-		    	        });
-		    	        fx.wipeIn(wipeArgs).play();
-					}
-					function add_error_message(content){
-						add_message(content, "error");	
-					}
-					function add_success_message(content){
-						add_message(content, "error");	
-					}
-				});
+		var dojoConfig = {
+			async: true,
+			parseOnLoad: true,
+			packages: [
+			    {
+			        name: "pgGallery",
+			        location: "<c:url value="/js" />"
+			    }
+			]
+		};
+		</script>
+		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"/>" type="text/javascript"></script>
+		<script type="text/javascript">
+			require(["pgGallery/Message"], function(m){
+				m.success("foo");
 			});
 		</script>
+		<link rel="stylesheet" href="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/tundra/tundra.css"/>" />
+		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
 		
 		<sitemesh:write property="head" />
 	</head>
