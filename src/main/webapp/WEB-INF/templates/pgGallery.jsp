@@ -16,13 +16,25 @@
 			]
 		};
 		</script>
-		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dojo/dojo.js"/>" type="text/javascript"></script>
+		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"/>" type="text/javascript"></script>
+		<script type="text/javascript">
+			require(["dojo/parser"]);
+		</script>
+		<c:if test="${not empty error}">
 		<script type="text/javascript">
 			require(["pgGallery/Message"], function(m){
-				m.success("foo");
+				m.error("${error}");
 			});
 		</script>
-		<link rel="stylesheet" href="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.0/dijit/themes/tundra/tundra.css"/>" />
+		</c:if>
+		<c:if test="${not empty success}">
+		<script type="text/javascript">
+			require(["pgGallery/Message"], function(m){
+				m.success("${success}");
+			});
+		</script>
+		</c:if>
+		<link rel="stylesheet" href="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/tundra/tundra.css"/>" />
 		<link rel="stylesheet" href="<c:url value="/styles/style.css"/> " />
 		
 		<sitemesh:write property="head" />

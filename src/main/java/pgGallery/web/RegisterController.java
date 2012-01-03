@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pgGallery.db.pojo.User;
 import pgGallery.db.service.UserService;
@@ -36,7 +37,7 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String signUp(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult result,Model mod){
+	public String signUp(@ModelAttribute("form") @Valid RegistrationForm form, BindingResult result, Model mod, RedirectAttributes rattr){
 		if(result.hasErrors()){
 			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
 			return "register";
@@ -57,6 +58,7 @@ public class RegisterController {
 			return "register";
 		}
 		
+		rattr.addFlashAttribute("success", "Congrats on signing up!");
 		return "redirect:/";
 	}
 
