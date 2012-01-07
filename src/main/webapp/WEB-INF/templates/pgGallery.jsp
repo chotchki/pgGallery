@@ -42,8 +42,6 @@
 	<body class="tundra">
 		<div class="footer-push-container">
 			<div id="message" style="display: none;">
-				<p class="error"><c:out value="${error}"/></p>
-				<p class="success"><c:out value="${success}"/></p>
 			</div>
 			<div class="top-links">
 				<ul>
