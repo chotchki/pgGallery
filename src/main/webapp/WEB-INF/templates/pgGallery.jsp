@@ -11,15 +11,16 @@
 			packages: [
 			    {
 			        name: "pgGallery",
-			        location: "<c:url value="/js" />"
+			        location: "<%=request.getContextPath()%>/js"
 			    }
 			]
 		};
 		</script>
-		<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js"/>" type="text/javascript"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			require(["dojo/parser"]);
 		</script>
+		
 		<c:if test="${not empty error}">
 		<script type="text/javascript">
 			require(["pgGallery/Message"], function(m){
