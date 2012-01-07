@@ -7,6 +7,7 @@
 			         "dijit/form/Button",
 			         "dijit/form/ValidationTextBox"
 			         ]);
+			require(["pgGallery/Focus"],function(f){f.focus("j_username")});
 		</script>
 		<c:set value="${SPRING_SECURITY_LAST_EXCEPTION.message}" var="error"/>
 	</head>

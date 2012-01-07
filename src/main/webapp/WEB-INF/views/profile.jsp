@@ -8,6 +8,7 @@
 		         "dijit/form/Button",
 		         "dijit/form/ValidationTextBox"
 		         ]);
+		require(["pgGallery/Focus"],function(f){f.focus("currentPassword")});
 		</script>
 		<style>
 			.content p {
@@ -28,7 +29,7 @@
 	                        <label for="username">Current Password:</label>
 	                    </td>
 	                    <td>
-	                        <input type="password" name="currentPassword" required="required" data-dojo-type="dijit.form.ValidationTextBox"/>
+	                        <input type="password" id="currentPassword" name="currentPassword" required="required" data-dojo-type="dijit.form.ValidationTextBox"/>
 	                    </td>
 	                </tr>
 	                <tr>

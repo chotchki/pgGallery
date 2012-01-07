@@ -7,6 +7,7 @@
 		         "dijit/form/Button",
 		         "dijit/form/ValidationTextBox"
 		         ]);
+		require(["pgGallery/Focus"],function(f){f.focus("username")});
 		</script>
 	</head>
 	<body>
