@@ -32,7 +32,7 @@
 	</bean>
 	
 	<!-- Setup Spring Security -->
-	<security:http auto-config="true" use-expressions="true">
+	<security:http auto-config="true" use-expressions="true" disable-url-rewriting="true">
 		<security:intercept-url pattern="/font/**"		access="permitAll" />
 		<security:intercept-url pattern="/js/**"		access="permitAll" />
 		<security:intercept-url pattern="/styles/**"	access="permitAll" />
