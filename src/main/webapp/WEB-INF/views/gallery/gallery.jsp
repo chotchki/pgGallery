@@ -33,51 +33,64 @@
 	}
 </style>
 <script type="text/javascript">
-	dojo.require("dijit.form.Form");
-	dojo.require("dijit.form.Button");
-	dojo.require("dijit.Dialog");
-	dojo.require("dijit.form.TextBox");
-	dojo.require("dijit.form.CheckBox");
-	dojo.require("dojox.form.Uploader");
-	dojo.require("dojox.form.uploader.plugins.HTML5");
+	require(["dijit/form/Form",
+	         "dijit/form/Button",
+	         "dijit/form/DropDownButton",
+	         "dijit/Dialog",
+	         "dijit/TooltipDialog",
+	         "dijit/form/TextBox",
+	         "dijit/form/CheckBox",
+	         "dojox/form/Uploader",
+	         "dojox/form/uploader/FileList"]);
 	
-	dojo.ready(function(){
-		dojo.query(".items li").forEach(function(node, index, arr){
-			dojo.connect(node, "onmouseenter", null, function(e){
-				//dojo.style(e.currentTarget, "border", "1px solid #C0C3AC");
-				dojo.query(".tools", e.currentTarget).forEach(function(node, index, arr){
-					dojo.style(node, "display", "block");
+	require(["dojo/ready", 
+	         "dojo/query",
+	         "dojo/dom-style",
+	         "dojo/_base/xhr",
+	         "dojo/dom-attr"],
+			function(ready, _query,_style, _xhr, _attr){
+				ready(function(){
+					var query = _query;
+					query(".items li").connect("onmouseenter", function(e){
+						var query = _query;
+						query(".tools", e.currentTarget).forEach(function(node, index, arr){
+							var style = _style;
+							style.set(node, "display", "block");
+						});
+					});
+					query(".items li").connect("onmouseleave", function(e){
+						var query = _query;
+						query(".tools", e.currentTarget).forEach(function(node, index, arr){
+							var style = _style;
+							style.set(node, "display", "none");
+						});
+					});
+					query(".tools a").on("click", function(e){
+						e.preventDefault();
+						var xhr = _xhr;
+						var attr = _attr;
+						var target = e.currentTarget;
+						xhr.post({
+							url: attr.get(target, "href"),
+			                handleAs: "json",
+			                load: function(data) {
+			                	var u = target;
+			                	var query = _query;
+			                	var attr = _attr;
+			                	if(data.status == "success"){
+			                		query("> img", u.parentNode.parentNode).forEach(function(node, index, arr){
+			                			attr.set(node, "src",  attr.get(node, "src") + "?dummy=1");
+			        				});
+			                	}
+			                },
+			                error: function(error) {
+			                	var u = "";
+			                }
+						});
+					});
 				});
-			});
-			dojo.connect(node, "onmouseleave", null, function(e){
-				//dojo.style(e.currentTarget, "border", "");
-				dojo.query(".tools", e.currentTarget).forEach(function(node, index, arr){
-					dojo.style(node, "display", "none");
-				});
-			});
-		});
-		dojo.query(".tools a").forEach(function(node,index,arr){
-			dojo.connect(node, "onclick", null, function(e){
-				e.preventDefault();
-				var target = e.currentTarget;
-				dojo.xhrPost({
-	                url: dojo.attr(target, "href"),
-	                handleAs: "json",
-	                load: function(data) {
-	                	var u = target;
-	                	if(data.status == "success"){
-	                		dojo.query("> img", target.parentNode.parentNode).forEach(function(node, index, arr){
-	                			dojo.attr(node, "src",  dojo.attr(node, "src") + "?dummy=1");
-	        				});
-	                	}
-	                },
-	                error: function(error) {
-	                	var u = "";
-	                }
-	            });
-			})
-		});
-	});
+			}
+	);
 </script>
 </head>
 <body>
@@ -94,27 +107,29 @@
 				<li><a href="<c:url value="/gallery/album/${crumb.id}"/>"><c:out value="${crumb.name}" /></a></li>
 			</c:forEach>
 			<li>
-				<div dojoType="dijit.form.DropDownButton">
+				<div data-dojo-type="dijit.form.DropDownButton">
 					<span>New Album</span>
-					<div dojoType="dijit.TooltipDialog">
-						<div dojoType="dijit.form.Form" action="<c:url value="/gallery/album/create"/>" method="POST">
-							<label for="name"> Name:</label><input dojoType="dijit.form.TextBox" id="name" name="name">
-							<input id="isPublic" name="isPublic" dojoType="dijit.form.CheckBox" value="true" /><label for="isPublic">Public?</label>
-							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
-							<button dojoType="dijit.form.Button" type="submit">Create</button>
-						</div>
+					<div data-dojo-type="dijit.TooltipDialog">
+						<form data-dojo-type="dijit.form.Form" action="<c:url value="/gallery/album/create"/>" method="POST">
+							<label for="name"> Name:</label><input data-dojo-type="dijit.form.TextBox" id="name" name="name">
+							<input id="isPublic" name="isPublic" data-dojo-type="dijit.form.CheckBox" value="true" /><label for="isPublic">Public?</label>
+							<input data-dojo-type="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
+							<button data-dojo-type="dijit.form.Button" type="submit">Create</button>
+						</form>
 					</div>
 				</div>
 			</li>
 			<li>
-				<div dojoType="dijit.form.DropDownButton">
+				<div data-dojo-type="dijit.form.DropDownButton">
 					<span>Upload Items</span>
-					<div dojoType="dijit.TooltipDialog">
-						<div dojoType="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
-							<input name="item" multiple="true" type="file" dojoType="dojox.form.Uploader" label="Select Some Files" id="uploader" />
-							<input dojoType="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
-							<input dojoType="dijit.form.Button" type="submit" label="Upload" />
-						</div>
+					<div data-dojo-type="dijit.TooltipDialog">
+						<form data-dojo-type="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
+							<input id="item" name="item" multiple="multiple" type="file" data-dojo-type="dojox.form.Uploader" label="Select Some Files" id="uploader" />
+							<input data-dojo-type="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
+							<div id="files" data-dojo-type="dojox.form.uploader.FileList" uploaderId="item"></div>
+							<button data-dojo-type="dijit.form.Button" type="submit">Upload</button>
+						</form>
+					</div>
 				</div>
 			</li>
 		</ul>
