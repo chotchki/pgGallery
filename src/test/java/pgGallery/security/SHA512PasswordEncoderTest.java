@@ -1,4 +1,4 @@
-package chotchki.security;
+package pgGallery.security;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
