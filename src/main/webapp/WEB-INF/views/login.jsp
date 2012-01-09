@@ -9,7 +9,14 @@
 			         ]);
 			require(["pgGallery/Focus"],function(f){f.focus("j_username")});
 		</script>
-		<c:set value="${SPRING_SECURITY_LAST_EXCEPTION.message}" var="error"/>
+		
+		<c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
+		<script type="text/javascript">
+			require(["pgGallery/Message"], function(m){
+				m.error("Login Failure: <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />");
+			});
+		</script>
+		</c:if>
 	</head>
 	<body>
 		<div class="content">
