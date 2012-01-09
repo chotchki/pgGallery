@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import pgGallery.AjaxResponse;
 import pgGallery.db.pojo.Album;
@@ -131,42 +132,43 @@ public class GalleryController {
 	}
 
 	@RequestMapping(value = "/album/create", method = RequestMethod.POST)
-	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result) {
+	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result, RedirectAttributes rattr) {
 		if (result.hasErrors()) {
-			mod.addAttribute("error", result.getFieldError().getDefaultMessage());
+			rattr.addFlashAttribute("error", result.getFieldError().getDefaultMessage());
 			return showDefault(mod);
 		}
 		try {
 			albumService.create(album);
-			mod.addAttribute("success", "Successfully created album.");
+			rattr.addFlashAttribute("success", "Successfully created album.");
 		} catch (DuplicateKeyException e) {
 			log.error("You must supply a unique album name!", e);
-			mod.addAttribute("error", "You must supply a unique album name!");
+			rattr.addFlashAttribute("error", "You must supply a unique album name!");
 		}
 		catch (Exception e) {
 			log.error("Had error creating album", e);
-			mod.addAttribute("error", "Could not create album");
+			rattr.addFlashAttribute("error", "Could not create album");
 		}
 		if (album.getParentId() != null) {
-			return viewAlbum(mod, album.getParentId());
+			return "redirect:/gallery/album/" + album.getParentId();
 		} else {
-			return showDefault(mod);
+			return "redirect:/gallery";
 		}
 	}
 	
 	@RequestMapping(value="/item/upload", method = RequestMethod.POST)
-	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req) {
+	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req, RedirectAttributes rattr) {
 		List<MultipartFile> items = req.getFiles("items[]");
 		try {
 			itemService.uploadAll(items, parentId);
 		} catch (Exception e) {
 			log.error("Had an issue uploading files", e);
-			mod.addAttribute("error", "Could not upload files.");
+			rattr.addFlashAttribute("error", "Had an error uploading files.");
 		}
+		rattr.addFlashAttribute("success", "Successfully uploaded " + items.size() + " items.");
 		if(parentId != null){
-			return viewAlbum(mod, parentId);
+			return "redirect:/gallery/album/" + parentId;
 		} else {
-			return showDefault(mod);
+			return "redirect:/gallery";
 		}
 	}
 	
