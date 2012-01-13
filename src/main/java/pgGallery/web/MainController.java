@@ -12,6 +12,6 @@ public class MainController {
 	
 	@RequestMapping("/")
 	public String showIndexPage(Model mod){
-		return "index";
+		return "redirect:/gallery";
 	}
 }
