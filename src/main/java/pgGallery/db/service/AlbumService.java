@@ -1,6 +1,7 @@
 package pgGallery.db.service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class AlbumService {
 	}
 	
 	public List<Album> getBreadcrumbById(BigDecimal id){
+		if(id == null) {
+			return new ArrayList<Album>();
+		}
 		List<Album> crumbs = albumMapper.getBreadcrumbById(id);
 		Collections.reverse(crumbs);
 		return crumbs;

@@ -147,7 +147,9 @@
 			</c:forEach>
 			<c:forEach var="i" items="${childItems}">
 				<li>
-					<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
+					<a href="<c:url value="/gallery/item/${i.id}"/>">
+						<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
+					</a>
 					<span class="tools">
 						<a href="<c:url value="/gallery/item/${i.id}/rotate/left"/>">
 							<img src="<c:url value="/img/rotate_left_small.png"/>" alt="Rotate Left"/>

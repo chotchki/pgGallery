@@ -171,6 +171,40 @@ public class GalleryController {
 			return "redirect:/gallery";
 		}
 	}
+
+	@RequestMapping(value = "/item/{itemId}")
+	public String viewItem(Model mod, @PathVariable("itemId") BigDecimal itemId, RedirectAttributes rattr){
+		try {
+			Item item = this.itemService.getById(itemId);
+			mod.addAttribute("item", item);
+			mod.addAttribute("breadcrumbs", albumService.getBreadcrumbById(item.getAlbumId()));
+		} catch (Exception e) {
+			log.error("Had an error loading the item",e);
+			rattr.addFlashAttribute("error", "Had an error loading the item");
+			return "redirect:/gallery";
+		}
+		return "gallery/item";
+	}
+	
+	@RequestMapping(value = "/item/{itemId}/main")
+	public void viewMain(@PathVariable("itemId") BigDecimal itemId, HttpServletResponse res, OutputStream output){
+		try{
+			Item item = this.itemService.getById(itemId);
+			res.setContentType(item.getMimeType());
+			
+			Thumbnail thumb = this.thumbnailService.getMainByItemId(item.getId());
+			res.setContentLength(thumb.getContent().length);
+			output.write(thumb.getContent());
+		} catch (Exception e){
+			log.error("Had an error getting the thumbnail", e);
+			try {
+				res.sendError(500);
+			} catch (IOException e1) {
+				log.error("Could not respond with a 500 error", e1);
+			}
+			return;
+		}
+	}
 	
 	@RequestMapping(value = "/item/{itemId}/thumb")
 	public void viewThumbnail(@PathVariable("itemId") BigDecimal itemId, HttpServletResponse res, OutputStream output){
