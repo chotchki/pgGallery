@@ -76,10 +76,10 @@
 			                load: function(data) {
 			                	var u = target;
 			                	var query = _query;
-			                	var attr = _attr;
 			                	if(data.status == "success"){
-			                		query("> img", u.parentNode.parentNode).forEach(function(node, index, arr){
-			                			attr.set(node, "src",  attr.get(node, "src") + "?dummy=1");
+			                		query("> a img", u.parentNode.parentNode).forEach(function(node, index, arr){
+			                			var attr = _attr;
+			                			attr.set(node, "src",  attr.get(node, "src") + "?dummy=" + Math.floor(Math.random()*100000));
 			        				});
 			                	}
 			                },
