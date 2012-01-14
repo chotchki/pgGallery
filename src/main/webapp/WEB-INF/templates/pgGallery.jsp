@@ -18,7 +18,9 @@
 		</script>
 		<script src="https://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dojo/dojo.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			require(["dojo/parser"]);
+			require(["pgGallery/NoFlicker"], function(n){
+				n.show(".content");
+			});
 		</script>
 		
 		<c:if test="${not empty error}">

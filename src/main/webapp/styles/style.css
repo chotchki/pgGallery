@@ -195,6 +195,7 @@ body div#message a {
     margin-bottom: 15px;
     padding: 15px;
     width: 700px;
+    display: none; /* Hidden until after the dijit parser finishes */
 }
 
 .content a {
