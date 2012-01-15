@@ -15,6 +15,10 @@ public class User {
 	@Length(min=6, max=100, message="Password must be between 6 and 100 characters")
 	private String password = null;
 	
+	private boolean enabled = false;
+	
+	private boolean admin = false;
+	
 	public void hashPassword(){
 		SHA512PasswordEncoder hasher = new SHA512PasswordEncoder();
 		password = hasher.encodePassword(password, null);
@@ -31,5 +35,21 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 }

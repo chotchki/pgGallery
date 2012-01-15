@@ -15,8 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.sql.DataSource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,7 +93,8 @@ public class ScanningLoader {
      * @return The classes
      * @throws ClassNotFoundException
      */
-    private static Set<Class<? extends Part>> findClasses(File directory, String packageName) throws ClassNotFoundException {
+    @SuppressWarnings("unchecked")
+	private static Set<Class<? extends Part>> findClasses(File directory, String packageName) throws ClassNotFoundException {
         Set<Class<? extends Part>> classes = new HashSet<Class<? extends Part>>();
         if (!directory.exists()) {
             return classes;
