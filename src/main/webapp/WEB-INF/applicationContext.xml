@@ -58,14 +58,20 @@
   			<value>
   			select username,
   				password,
-  				'true'
+  				enabled
   			from users
   			where username = ?
   			</value>
   		</property>
   		<property name="authoritiesByUsernameQuery">
   			<value>
-  				select username,'ROLE_USER' from users where username = ?
+  				select 
+  					username,
+  					CASE
+  						WHEN admin == true THEN 'ROLE_ADMIN'
+  						ELSE 'ROLE_USER'
+  					END 
+  				from users where username = ?
   			</value>
   		</property>
 	</bean>
