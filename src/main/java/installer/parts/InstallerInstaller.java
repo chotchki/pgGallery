@@ -26,4 +26,10 @@ public class InstallerInstaller extends Part {
 			return true;
 		}
 	}
+	
+	@Override
+	protected void preinstall() {}
+	
+	@Override
+	protected void postinstall() {}
 }

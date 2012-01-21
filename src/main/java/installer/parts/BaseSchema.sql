@@ -1,8 +1,3 @@
-DELETE FROM "pgGalleryInstaller" 
-WHERE "partName" = 'BaseSchema';
-
-INSERT INTO "pgGalleryInstaller" ("partName") VALUES ('BaseSchema');
-
 CREATE TABLE "siteSettings" (
     id integer PRIMARY KEY DEFAULT 1 NOT NULL,
     "itemsPerPage" integer NOT NULL,
@@ -118,7 +113,3 @@ CREATE TABLE thumbnails (
 );
 
 CREATE INDEX fki_thumbnails_fk ON thumbnails USING btree ("contentId");
-
-UPDATE "pgGalleryInstaller"
-SET installed = true
-WHERE "partName" = 'BaseSchema';

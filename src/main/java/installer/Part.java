@@ -33,7 +33,7 @@ public abstract class Part implements Comparable<Part> {
 	}
 	
 	public boolean isInstalled() throws Exception {
-		Map<String, Object> row = this.sqlRunner.selectOne("SELECT count(*) as count FROM \"pgGalleryInstaller\" WHERE \"partName\"='" + this.getClass().getSimpleName() + "' and installed = true");
+		Map<String, Object> row = this.sqlRunner.selectOne("SELECT count(*) as count FROM \"pgGalleryInstaller\" WHERE \"partName\" = ? and installed = true", this.getClass().getSimpleName());
 		long count = (Long) row.get("COUNT");
 		if(count == 0) {
 			return false;
@@ -55,7 +55,22 @@ public abstract class Part implements Comparable<Part> {
 		
 		InputStreamReader rdr = new InputStreamReader(is);
 		
+		log.info("Starting step {}", this.getClass().getSimpleName());
+		this.preinstall();
+		
 		log.info("Running install script {}", loaderLocation);
 		scriptRunner.runScript(rdr);
+		
+		log.info("Script Complete, updating status");
+		this.postinstall();
+	}
+	
+	protected void preinstall() throws Exception {
+		this.sqlRunner.delete("DELETE FROM \"pgGalleryInstaller\" WHERE \"partName\" = ?", this.getClass().getSimpleName());
+		this.sqlRunner.update("INSERT INTO \"pgGalleryInstaller\" (\"partName\") VALUES (?);", this.getClass().getSimpleName());
+	}
+	
+	protected void postinstall() throws Exception {
+		this.sqlRunner.update("UPDATE \"pgGalleryInstaller\" SET installed = true WHERE \"partName\" = ? ", this.getClass().getSimpleName());
 	}
 }
