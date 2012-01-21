@@ -13,13 +13,15 @@ import pgGallery.db.pojo.Item;
 
 
 public interface ItemMapper {
-	@Select("select * from items where \"albumId\" is null")
+	static final String SELECT = "select *, \"isItemDuplicate\"(id) AS duplicate from items where ";
+	
+	@Select(SELECT + "\"albumId\" is null")
 	public List<Item> getNonAlbum();
 	
-	@Select("select * from items where \"albumId\" = #{albumId}")
+	@Select(SELECT + "\"albumId\" = #{albumId}")
 	public List<Item> getByAlbum(@Param("albumId") BigDecimal albumId);
 	
-	@Select("select * from items where id = #{id}")
+	@Select(SELECT + "id = #{id}")
 	public Item getById(@Param("id") BigDecimal id);
 	
 	@Options(useGeneratedKeys=true)

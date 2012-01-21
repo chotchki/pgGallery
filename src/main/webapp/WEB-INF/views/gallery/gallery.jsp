@@ -10,6 +10,7 @@
 		height: <c:out value="${settings.thumbHeight + 30}"/>px;
 		width: <c:out value="${settings.thumbWidth + 30}"/>px;
 		display: inline-block;
+		vertical-align: top;
 	}
 	.items img {
 			display: block;
@@ -150,6 +151,9 @@
 					<a href="<c:url value="/gallery/item/${i.id}"/>">
 						<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
 					</a>
+					<c:if test="${i.duplicate == true}">
+							<img src="<c:url value="/img/duplicate.png"/>" alt="Duplicate Item"/>
+					</c:if>
 					<span class="tools">
 						<a href="<c:url value="/gallery/item/${i.id}/rotate/left"/>">
 							<img src="<c:url value="/img/rotate_left_small.png"/>" alt="Rotate Left"/>

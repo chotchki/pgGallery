@@ -15,6 +15,8 @@ public class Item {
 	
 	private String mimeType = null;
 	
+	private boolean duplicate = false;
+	
 	public BigDecimal getId() {
 		return id;
 	}
@@ -38,5 +40,11 @@ public class Item {
 	}
 	public void setMimeType(String mimeType) {
 		this.mimeType = mimeType;
+	}
+	public boolean isDuplicate() {
+		return duplicate;
+	}
+	public void setDuplicate(boolean duplicate) {
+		this.duplicate = duplicate;
 	}
 }
