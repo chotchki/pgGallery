@@ -40,7 +40,7 @@ import pgGallery.db.service.ThumbnailService;
 @Controller
 @RequestMapping("/gallery")
 public class GalleryController {
-	protected final Logger log = LoggerFactory.getLogger(this.getClass());
+	protected final Logger log = LoggerFactory.getLogger(GalleryController.class);
 
 	@Autowired
 	private AlbumService albumService = null;
@@ -65,95 +65,7 @@ public class GalleryController {
 		return "gallery/gallery";
 	}
 
-	@RequestMapping(value = "/album/{albumId}", method = RequestMethod.GET)
-	public String viewAlbum(Model mod, @PathVariable("albumId") BigDecimal albumId) {
-		try {
-			Album valid = albumService.getById(albumId);
-			if (valid == null) {
-				throw new Exception("Album does not exist.");
-			}
-			mod.addAttribute("currentAlbum", valid);
-		} catch (Exception e) {
-			log.error("Issue checking album", e);
-			mod.addAttribute("error", "Could not find album");
-			return "gallery/gallery";
-		}
-		
-		mod.addAttribute("settings", siteSettingsService.get());
-		mod.addAttribute("breadcrumbs", albumService.getBreadcrumbById(albumId));
-		mod.addAttribute("childAlbums", albumService.getByParent(albumId));
-		mod.addAttribute("childItems", itemService.getByAlbum(albumId));
-		return "gallery/gallery";
-	}
-	
-	@RequestMapping(value = "/album/{albumId}", method = RequestMethod.POST)
-	public @ResponseBody AjaxResponse editAlbum(Model mod, @PathVariable("albumId") BigDecimal albumId,
-			@Valid Album sub_album, BindingResult res_album) {
-		AjaxResponse a = new AjaxResponse();
-		
-		if(res_album.hasErrors()) {
-			a.error(res_album.getFieldError().getDefaultMessage());
-			return a;
-		}
-		try {
-			Album db_album = albumService.getById(albumId);
-			db_album.apply(sub_album);
-			albumService.update(db_album);
-		} catch(Exception e) {
-			log.error("Had an error updating the album.", e);
-			a.error(e.getLocalizedMessage());
-		}
-		return a;
-	}
-	
-	@RequestMapping(value = "/album/{albumId}/thumb", method = RequestMethod.GET)
-	public void viewAlbumThumbnail(Model mod, @PathVariable("albumId") BigDecimal albumId, HttpServletResponse res, OutputStream output){
-		try{
-			Album album = albumService.getById(albumId);
-			if(album.getDefaultId() != null) {
-				viewThumbnail(album.getDefaultId(), res, output);
-				return;
-			}
-			
-			List<Item> items = itemService.getByAlbum(albumId);
-			Random r = new Random();
-			int rItem = r.nextInt(items.size() - 1);
-			
-			viewThumbnail(items.get(rItem).getId(), res, output);
-		} catch (Exception e){
-			log.error("Had an error getting the thumbnail", e);
-			try {
-				res.sendError(500);
-			} catch (IOException e1) {
-				log.error("Could not respond with a 500 error", e1);
-			}
-			return;
-		}
-	}
 
-	@RequestMapping(value = "/album/create", method = RequestMethod.POST)
-	public String createAlbum(Model mod, Principal user, @Valid Album album, BindingResult result, RedirectAttributes rattr) {
-		if (result.hasErrors()) {
-			rattr.addFlashAttribute("error", result.getFieldError().getDefaultMessage());
-			return showDefault(mod);
-		}
-		try {
-			albumService.create(album);
-			rattr.addFlashAttribute("success", "Successfully created album.");
-		} catch (DuplicateKeyException e) {
-			log.error("You must supply a unique album name!", e);
-			rattr.addFlashAttribute("error", "You must supply a unique album name!");
-		}
-		catch (Exception e) {
-			log.error("Had error creating album", e);
-			rattr.addFlashAttribute("error", "Could not create album");
-		}
-		if (album.getParentId() != null) {
-			return "redirect:/gallery/album/" + album.getParentId();
-		} else {
-			return "redirect:/gallery";
-		}
-	}
 	
 	@RequestMapping(value="/item/upload", method = RequestMethod.POST)
 	public String uploadItems(Model mod, @RequestParam(value = "parentId", required = false) BigDecimal parentId, MultipartHttpServletRequest req, RedirectAttributes rattr) {
