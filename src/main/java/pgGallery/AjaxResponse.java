@@ -24,8 +24,19 @@ public class AjaxResponse {
 	 * Simple way to respond with an error.
 	 * @param message The error message.
 	 */
-	public void error(String message) {
+	public AjaxResponse error(String message) {
 		status = ERROR;
 		this.message = message;
+		return this;
+	}
+	
+	/**
+	 * Simple way to respond with a success.
+	 * @param message The success message.
+	 */
+	public AjaxResponse success(String message) {
+		status = SUCCESS;
+		this.message = message;
+		return this;
 	}
 }
