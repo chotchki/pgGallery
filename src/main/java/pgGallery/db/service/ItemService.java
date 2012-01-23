@@ -58,6 +58,10 @@ public class ItemService {
 		itemContentService.upload(item, file.getBytes());
 	}
 	
+	public void delete(Item item) {
+		itemMapper.delete(item);
+	}
+	
 	public void update(Item item){
 		itemMapper.update(item);
 	}

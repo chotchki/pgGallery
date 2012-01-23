@@ -30,6 +30,9 @@
 		float: left;
 	}
 	.tools a:nth-child(2){
+		float: left;
+	}
+	.tools a:nth-child(3){
 		float: right;
 	}
 </style>
@@ -48,8 +51,10 @@
 	         "dojo/query",
 	         "dojo/dom-style",
 	         "dojo/_base/xhr",
-	         "dojo/dom-attr"],
-			function(ready, _query,_style, _xhr, _attr){
+	         "dojo/dom-attr",
+	         "pgGallery/Message",
+	         "dojo/dom-construct"],
+			function(ready, _query,_style, _xhr, _attr, _mesg, _dom){
 				ready(function(){
 					var query = _query;
 					query(".items li").connect("onmouseenter", function(e){
@@ -66,7 +71,7 @@
 							style.set(node, "display", "none");
 						});
 					});
-					query(".tools a").on("click", function(e){
+					query(".tools a:nth-child(odd)").on("click", function(e){
 						e.preventDefault();
 						var xhr = _xhr;
 						var attr = _attr;
@@ -85,7 +90,30 @@
 			                	}
 			                },
 			                error: function(error) {
-			                	var u = "";
+			                	var mesg = _mesg;
+			                	mesg.error("Unable to rotate image " + error);
+			                }
+						});
+					});
+					query(".tools a:nth-child(2)").on("click", function(e){
+						e.preventDefault();
+						var xhr = _xhr;
+						var attr = _attr;
+						var target = e.currentTarget;
+						xhr.del({
+							url: attr.get(target, "href"),
+			                handleAs: "json",
+			                load: function(data) {
+			                	var u = target;
+			                	var query = _query;
+			                	var dom = _dom;
+			                	if(data.status == "success"){
+			                		dom.destroy(u.parentNode.parentNode);
+			                	}
+			                },
+			                error: function(error) {
+			                	var mesg = _mesg;
+			                	mesg.error("Unable to delete image " + error);
 			                }
 						});
 					});
@@ -157,6 +185,9 @@
 					<span class="tools">
 						<a href="<c:url value="/gallery/item/${i.id}/rotate/left"/>">
 							<img src="<c:url value="/img/rotate_left_small.png"/>" alt="Rotate Left"/>
+						</a>
+						<a href="<c:url value="/gallery/item/${i.id}"/>">
+							<img src="<c:url value="/img/delete.png"/>" alt="Delete"/>
 						</a>
 						<a href="<c:url value="/gallery/item/${i.id}/rotate/right"/>">
 							<img src="<c:url value="/img/rotate_right_small.png"/>" alt="Rotate Right"/>

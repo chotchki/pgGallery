@@ -98,6 +98,23 @@ public class GalleryController {
 		return "gallery/item";
 	}
 	
+	@RequestMapping(value = "/item/{itemId}", method = RequestMethod.DELETE)
+	public @ResponseBody AjaxResponse deleteItem(Model mod, @PathVariable("itemId") BigDecimal itemId){
+		AjaxResponse a = new AjaxResponse();
+		Item item = null;
+		try {
+			item = itemService.getById(itemId);
+			if(item == null) {
+				return a.error("Item does not exist to delete.");
+			}
+			itemService.delete(item);
+			return a.success("Successfully deleted " + item.getName());
+		} catch (Exception e) {
+			log.error("Had an error deleting the item.",e);
+			return a.error("Had an error deleting the item.");
+		}
+	}
+	
 	@RequestMapping(value = "/item/{itemId}/main")
 	public void viewMain(@PathVariable("itemId") BigDecimal itemId, HttpServletResponse res, OutputStream output){
 		try{
