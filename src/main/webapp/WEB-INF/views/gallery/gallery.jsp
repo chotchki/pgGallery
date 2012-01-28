@@ -168,7 +168,7 @@
 				<button id="uploadDialog" data-dojo-type="dijit.form.Button" type="submit">Upload Items</button>
 				<div id="uploadManager" data-dojo-type="dijit.Dialog" title="Upload Manager">
 					<form data-dojo-type="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
-							<input id="item" name="item" multiple="multiple" type="file" data-dojo-type="dojox.form.Uploader" label="Select Some Files" id="uploader" />
+							<input id="item" name="item" multiple="multiple" type="file" data-dojo-type="dojox.form.Uploader" label="Upload New Photos" />
 							<input data-dojo-type="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
 							<ul id="uploadQueue">
 								
@@ -176,17 +176,6 @@
 							<button data-dojo-type="dijit.form.Button" type="submit">Upload</button>
 					</form>
 				</div>
-				<!-- <div data-dojo-type="dijit.form.DropDownButton">
-					<span>Upload Items</span>
-					<div data-dojo-type="dijit.TooltipDialog">
-						<form data-dojo-type="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
-							<input id="item" name="item" multiple="multiple" type="file" data-dojo-type="dojox.form.Uploader" label="Select Some Files" id="uploader" />
-							<input data-dojo-type="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
-							<div id="files" data-dojo-type="dojox.form.uploader.FileList" uploaderId="item"></div>
-							<button data-dojo-type="dijit.form.Button" type="submit">Upload</button>
-						</form>
-					</div>
-				</div> -->
 			</li>
 		</ul>
 		<br />
