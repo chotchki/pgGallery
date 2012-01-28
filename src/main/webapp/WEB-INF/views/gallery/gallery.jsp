@@ -3,8 +3,19 @@
 <head>
 <title>Gallery</title>
 <style type="text/css">
-	#uploader {
-		display: inline;  /* Dojo 1.6/1.7 Bug Workaround */
+	#uploadManager {
+		height: 300px;
+		width: 500px;
+	}
+	#uploadQueue {
+		height: 200px;
+		overflow: scroll;
+	}
+	#uploadQueue li {
+		float: left;
+	}
+	#uploadManager form :last-child {
+		float: right;
 	}
 	.items li {
 		height: <c:out value="${settings.thumbHeight + 30}"/>px;
@@ -120,6 +131,11 @@
 				});
 			}
 	);
+	
+	require(["pgGallery/UploadItems"], function(m){
+		m.button("uploadDialog", "uploadManager");
+		m.manage("item", "uploadQueue");
+	});
 </script>
 </head>
 <body>
@@ -149,7 +165,18 @@
 				</div>
 			</li>
 			<li>
-				<div data-dojo-type="dijit.form.DropDownButton">
+				<button id="uploadDialog" data-dojo-type="dijit.form.Button" type="submit">Upload Items</button>
+				<div id="uploadManager" data-dojo-type="dijit.Dialog" title="Upload Manager">
+					<form data-dojo-type="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
+							<input id="item" name="item" multiple="multiple" type="file" data-dojo-type="dojox.form.Uploader" label="Select Some Files" id="uploader" />
+							<input data-dojo-type="dijit.form.TextBox" type="hidden" name="parentId" value="<c:out value="${currentAlbum.id}"/>" />
+							<ul id="uploadQueue">
+								
+							</ul>
+							<button data-dojo-type="dijit.form.Button" type="submit">Upload</button>
+					</form>
+				</div>
+				<!-- <div data-dojo-type="dijit.form.DropDownButton">
 					<span>Upload Items</span>
 					<div data-dojo-type="dijit.TooltipDialog">
 						<form data-dojo-type="dijit.form.Form" enctype="multipart/form-data" action="<c:url value="/gallery/item/upload"/>" method="POST">
@@ -159,7 +186,7 @@
 							<button data-dojo-type="dijit.form.Button" type="submit">Upload</button>
 						</form>
 					</div>
-				</div>
+				</div> -->
 			</li>
 		</ul>
 		<br />
