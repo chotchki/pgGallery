@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.im4java.core.IM4JavaException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,7 @@ public class ItemService {
 		return itemMapper.getNonAlbum();
 	}
 	
+	@PostFilter("hasAnyRole('ROLE_USER','ROLE_ADMIN') or filterObject.isPublic == true")
 	public List<Item> getByAlbum(BigDecimal albumId){
 		return itemMapper.getByAlbum(albumId);
 	}

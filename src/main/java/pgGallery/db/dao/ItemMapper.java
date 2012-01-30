@@ -14,7 +14,7 @@ import pgGallery.db.pojo.Item;
 
 
 public interface ItemMapper {
-	static final String SELECT = "select *, \"isItemDuplicate\"(id) AS duplicate from items where ";
+	static final String SELECT = "select *, \"isItemDuplicate\"(id) AS duplicate, \"isAlbumPublic\"(\"albumId\") AS \"isPublic\" from items where ";
 	
 	@Select(SELECT + "\"albumId\" is null")
 	public List<Item> getNonAlbum();

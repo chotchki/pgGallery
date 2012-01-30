@@ -17,6 +17,8 @@ public class Item {
 	
 	private boolean duplicate = false;
 	
+	private boolean isPublic = false;
+	
 	public BigDecimal getId() {
 		return id;
 	}
@@ -46,5 +48,11 @@ public class Item {
 	}
 	public void setDuplicate(boolean duplicate) {
 		this.duplicate = duplicate;
+	}
+	public boolean isPublic() {
+		return isPublic;
+	}
+	public void setPublic(boolean isPublic) {
+		this.isPublic = isPublic;
 	}
 }

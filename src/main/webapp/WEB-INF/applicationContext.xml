@@ -42,6 +42,7 @@
 
 		<security:form-login login-page='/login' />
 	</security:http>
+	<security:global-method-security pre-post-annotations="enabled"/>
 	
 	<security:authentication-manager>
 		<security:authentication-provider ref="daoAuthenticationProvider"/>
@@ -68,7 +69,7 @@
   				select 
   					username,
   					CASE
-  						WHEN admin == true THEN 'ROLE_ADMIN'
+  						WHEN admin = true THEN 'ROLE_ADMIN'
   						ELSE 'ROLE_USER'
   					END 
   				from users where username = ?

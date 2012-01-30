@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,10 +19,12 @@ public class AlbumService {
 	@Autowired
 	private AlbumMapper albumMapper = null;
 	
+	@PostFilter("hasAnyRole('ROLE_USER','ROLE_ADMIN') or filterObject.isPublic() == true")
 	public List<Album> getRoot(){
 		return albumMapper.getRoot();
 	}
 	
+	@PostFilter("hasAnyRole('ROLE_USER','ROLE_ADMIN') or filterObject.isPublic() == true")
 	public List<Album> getByParent(BigDecimal id){
 		return albumMapper.getByParent(id);
 	}
