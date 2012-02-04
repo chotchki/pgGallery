@@ -37,6 +37,9 @@ Installation
     1. cd /CHECKOUT/DIR
     2. mvn jetty:run
     
+Support / Development
+---------------------
+We are on [Google Groups](http://groups.google.com/group/pggallery) and the support address is [pggallery@googlegroups.com](pggallery@googlegroups.com).
 
 DEVELOPMENT NOTES - will move to another file sometime
 ------------------------------------------------------
