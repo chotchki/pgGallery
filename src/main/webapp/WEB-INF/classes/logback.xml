@@ -7,6 +7,8 @@
 		</layout>
 	</appender>
 
+	<logger name="java.sql.ResultSet" level="INFO" />
+	
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
 	</root>

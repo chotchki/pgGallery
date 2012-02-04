@@ -29,8 +29,9 @@ public class ItemContentService {
 	@Autowired
 	private ItemContentMapper itemContentMapper = null;
 	
-	@Autowired
-	private ThumbnailService thumbnailService = null;
+	public ItemContent getActiveByItemId(BigDecimal itemId) {
+		return itemContentMapper.getActiveByItemId(itemId);
+	}
 	
 	@Transactional
 	public void create(ItemContent content) {
@@ -43,7 +44,6 @@ public class ItemContentService {
 		ItemContent c = itemContentMapper.getActiveByItemId(itemId);
 		c.setContent(imageService.rotateLeft(c.getContent()));
 		create(c);
-		thumbnailService.upload(c);
 	}
 	
 	@Transactional
@@ -51,7 +51,6 @@ public class ItemContentService {
 		ItemContent c = itemContentMapper.getActiveByItemId(itemId);
 		c.setContent(imageService.rotateRight(c.getContent()));
 		create(c);
-		thumbnailService.upload(c);
 	}
 	
 	public void upload(Item item, byte[] content) throws IOException, InterruptedException, IM4JavaException {
@@ -59,7 +58,5 @@ public class ItemContentService {
 		icontent.setItemId(item.getId());
 		icontent.setContent(content);
 		create(icontent);
-		
-		thumbnailService.upload(icontent);
 	}
 }

@@ -3,6 +3,7 @@ package pgGallery.db.dao;
 import java.math.BigDecimal;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -27,5 +28,6 @@ public interface ThumbnailMapper {
 	public Thumbnail getThumbByItemId(@Param("itemId") BigDecimal itemId);
 	
 	@Insert("insert into thumbnails(\"contentId\", height, width, content, type) values (#{contentId}, #{height}, #{width}, #{content}, #{type})")
+	@Options(useGeneratedKeys=true, keyColumn="id")
 	public void create(Thumbnail thumbnail);
 }
