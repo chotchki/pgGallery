@@ -152,6 +152,7 @@
 				<li>&gt;</li>
 				<li><a href="<c:url value="/gallery/album/${crumb.id}"/>"><c:out value="${crumb.name}" /></a></li>
 			</c:forEach>
+			<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 			<li>
 				<div data-dojo-type="dijit.form.DropDownButton">
 					<span>New Album</span>
@@ -178,6 +179,7 @@
 					</form>
 				</div>
 			</li>
+			</sec:authorize>
 		</ul>
 		<br />
 		<ul class="items">
@@ -196,6 +198,7 @@
 					<a href="<c:url value="/gallery/item/${i.id}"/>">
 						<img src="<c:url value="/gallery/item/${i.id}/thumb"/>" />
 					</a>
+					<sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
 					<c:if test="${i.duplicate == true}">
 							<img src="<c:url value="/img/duplicate.png"/>" alt="Duplicate Item"/>
 					</c:if>
@@ -210,6 +213,7 @@
 							<img src="<c:url value="/img/rotate_right_small.png"/>" alt="Rotate Right"/>
 						</a>
 					</span>
+					</sec:authorize>
 				</li>
 			</c:forEach>
 		</ul>

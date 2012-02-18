@@ -37,10 +37,10 @@
 		<security:intercept-url pattern="/js/**"			access="permitAll" />
 		<security:intercept-url pattern="/styles/**"		access="permitAll" />
 		
-		<security:intercept-url method="POST" pattern="/album/create*"	access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<security:intercept-url method="POST" pattern="/item/upload*"		access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<security:intercept-url 			  pattern="/profile*"			access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
-		<security:intercept-url method="GET"  pattern="/**"				access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url method="POST" pattern="/gallery/album/create*"	access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url method="POST" pattern="/gallery/item/upload*"	access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url 			  pattern="/profile*"				access="hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
+		<security:intercept-url method="GET"  pattern="/**"						access="isAnonymous() or hasAnyRole('ROLE_USER','ROLE_ADMIN')" />
 
 		<security:form-login login-page='/login' />
 	</security:http>
