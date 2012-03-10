@@ -3,6 +3,7 @@ package pgGallery.db.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -39,4 +40,7 @@ public interface AlbumMapper {
 	
 	@Update("update albums set name = #{name}, \"parentId\" = #{parentId}, \"isPublic\" = #{isPublic}, \"defaultId\" = #{defaultId} where id = #{id}")
 	public void update(Album album);
+	
+	@Delete("delete from albums where id = #{id}")
+	public void delete(Album album);
 }

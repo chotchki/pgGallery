@@ -84,6 +84,25 @@ public class AlbumController {
 		return a;
 	}
 	
+	@RequestMapping(value = "/{albumId}", method = RequestMethod.DELETE)
+	public @ResponseBody AjaxResponse deleteAlbum(Model mod, @PathVariable("albumId") BigDecimal albumId, RedirectAttributes rattr){
+		AjaxResponse a = new AjaxResponse();
+		
+		try {
+			Album valid = albumService.getById(albumId);
+			if (valid == null) {
+				a.error("Album does not exist.");
+			}
+			albumService.delete(valid);
+			a.success("Deleted album " + albumId.toPlainString());
+			rattr.addFlashAttribute("success", "Deleted album " + albumId.toPlainString());
+		} catch(Exception e) {
+			log.error("Had an error deleting the album " + albumId.toPlainString(), e);
+			a.error("Could not delete the album " + albumId.toPlainString());
+		}
+		return a;
+	}
+	
 	@RequestMapping(value = "/{albumId}/thumb", method = RequestMethod.GET)
 	public String viewAlbumThumbnail(Model mod, @PathVariable("albumId") BigDecimal albumId, HttpServletResponse res){
 		try{

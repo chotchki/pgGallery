@@ -53,6 +53,11 @@ public class AlbumService {
 	public void update(Album album){
 		albumMapper.update(album);
 	}
+	
+	@Transactional
+	public void delete(Album album) {
+		albumMapper.delete(album);
+	}
 
 	public void setAlbumMapper(AlbumMapper albumMapper) {
 		this.albumMapper = albumMapper;

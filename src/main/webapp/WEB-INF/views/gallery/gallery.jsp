@@ -69,6 +69,29 @@
 			function(ready, _query,_style, _xhr, _attr, _mesg, _dom){
 				ready(function(){
 					var query = _query;
+					query("#deleteAlbum").on("click", function(e){
+						e.preventDefault();
+						var xhr = _xhr;
+						var attr = _attr;
+						var target = e.currentTarget;
+						
+						xhr.del({
+							url: target.dataset["href"],
+							handleAs: "json",
+							load: function(data){
+								var mesg = _mesg;
+								if(data.status == "success"){
+									window.location = "<c:url value="/gallery"/>";	
+								} else {
+									mesg.error("Unable to delete album " + data.message);	
+								}
+							},
+							error: function(error){
+								var mesg = _mesg;
+								mesg.error("Unable to delete album " + error);
+							}
+						});
+					});
 					query(".items li").connect("onmouseenter", function(e){
 						var query = _query;
 						query(".tools", e.currentTarget).forEach(function(node, index, arr){
@@ -178,6 +201,15 @@
 							<button data-dojo-type="dijit.form.Button" type="submit">Upload</button>
 					</form>
 				</div>
+			</li>
+			<li>
+				<c:if test="${! empty currentAlbum}">
+						<button id="deleteAlbum"
+							data-href="<c:out value="/gallery/album/${currentAlbum.id}"/>"
+							data-dojo-type="dijit.form.Button" 
+							data-dojo-props="iconClass:'dijitEditorIcon dijitEditorIconDelete', showLabel: false" 
+							type="button">Delete Album</button>
+				</c:if>
 			</li>
 			</sec:authorize>
 		</ul>
