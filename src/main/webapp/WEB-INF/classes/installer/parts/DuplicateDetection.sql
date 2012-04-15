@@ -19,4 +19,4 @@ END;
 $BODY$
   LANGUAGE sql STABLE
   COST 100;
-COMMENT ON FUNCTION "isItemUnique"(bigint) IS 'Detects duplicate items based off the item content hashes.';
+COMMENT ON FUNCTION "isItemDuplicate"(bigint) IS 'Detects duplicate items based off the item content hashes.';
