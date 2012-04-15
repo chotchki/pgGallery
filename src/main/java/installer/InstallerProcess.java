@@ -17,19 +17,25 @@ import org.slf4j.LoggerFactory;
 
 public class InstallerProcess implements ServletContextListener {
 	private static Logger log = LoggerFactory.getLogger(InstallerProcess.class);
-	private static final String INSTALLER_JNDI = "jdbc/installer";
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {}
 
 	@Override
 	public void contextInitialized(ServletContextEvent sce) {
+		String installerJndiPath = sce.getServletContext().getInitParameter("installer.InstallerProcess.jndi");
+		if(installerJndiPath == null) {
+			log.error("Unable to get the context parameter for installer.");
+			return;
+		}
+		
 		Connection conn = null;
 		try {
-		   Context adminDataSource = (Context) new InitialContext();
-		   DataSource ds = (DataSource) adminDataSource.lookup(INSTALLER_JNDI);
+		   Context initCtx = new InitialContext();
+		   Context envCtx = (Context) initCtx.lookup("java:comp/env");
+		   DataSource ds = (DataSource) envCtx.lookup(installerJndiPath);
 		   if(ds == null) {
-			   throw new Exception("Lookup failed for the installer using the path " + INSTALLER_JNDI);
+			   throw new Exception("Lookup failed for the installer using the path " + installerJndiPath);
 		   }
 		   conn = ds.getConnection();
 		   if(conn == null) {

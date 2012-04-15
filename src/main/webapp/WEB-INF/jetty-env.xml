@@ -3,7 +3,7 @@
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 	<New id="DSInstaller" class="org.eclipse.jetty.plus.jndi.Resource">
 		<Arg></Arg>
-		<Arg>jdbc/installer</Arg>
+		<Arg>java:comp/env/jdbc/installer</Arg>
 		<Arg>
 			<New class="org.postgresql.ds.PGPoolingDataSource">
 				<Set name="User">pgGallery-admin</Set>
